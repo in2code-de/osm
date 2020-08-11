@@ -1,0 +1,11 @@
+plugin {
+  tx_osm_pi1 {
+    settings {
+      default {
+        zoom = 10
+        latitute = 48.5294782
+        longitude = 9.0415853
+      }
+    }
+  }
+}

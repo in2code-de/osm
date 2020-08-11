@@ -1,0 +1,14 @@
+# Add wizard icon in backend
+mod.wizards.newContentElement.wizardItems.plugins {
+  elements {
+    osm_pi1 {
+      iconIdentifier = extension-osm-icon
+      title = LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.title
+      description = LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.description
+      tt_content_defValues {
+        CType = list
+        list_type = osm_pi1
+      }
+    }
+  }
+}
