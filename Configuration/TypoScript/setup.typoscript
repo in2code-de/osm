@@ -1,11 +1,32 @@
 plugin {
   tx_osm_pi1 {
     settings {
-      default {
-        zoom = 10
-        latitute = 48.5294782
-        longitude = 9.0415853
-      }
     }
+  }
+}
+
+osmMarkers = PAGE
+osmMarkers {
+  typeNum = 1597149189
+  config {
+    additionalHeaders.10.header = Content-Type: application/json
+    additionalHeaders.10.replace = 1
+    no_cache = 1
+    disableAllHeaderCode = 1
+    disablePrefixComment = 1
+    xhtml_cleaning = 0
+    admPanel = 0
+    debug = 0
+  }
+
+  10 = USER
+  10 {
+    userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+    extensionName = Osm
+    pluginName = Pi1
+    vendorName = In2code
+    controller = Map
+    action = getMarkers
+    switchableControllerActions.Map.1 = getMarkers
   }
 }

@@ -11,6 +11,22 @@
 				<source>Show a single address on a map</source>
 				<target state="translated">Zeige eine einzelne Adresse auf einer Karte</target>
 			</trans-unit>
+			<trans-unit id="pi1.settings.address">
+				<source>Add a single address</source>
+				<target state="translated">Adresse eintragen</target>
+			</trans-unit>
+			<trans-unit id="pi1.settings.zoom">
+				<source>Zoom factor</source>
+				<target state="translated">Zoom Faktor</target>
+			</trans-unit>
+			<trans-unit id="pi1.settings.markertitle">
+				<source>Title for marker</source>
+				<target state="translated">Überschrift Marker</target>
+			</trans-unit>
+			<trans-unit id="pi1.settings.markerdescription">
+				<source>Description for marker</source>
+				<target state="translated">Beschreibung Marker</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

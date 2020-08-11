@@ -5,11 +5,18 @@
 		<body>
 			<trans-unit id="pi1.title">
 				<source>OpenStreetMap Single Address</source>
-				<target state="translated">OpenStreetMap Einzeladresse</target>
 			</trans-unit>
 			<trans-unit id="pi1.description">
 				<source>Show a single address on a map</source>
-				<target state="translated">Zeige eine einzelne Adresse auf einer Karte</target>
+			</trans-unit>
+			<trans-unit id="pi1.settings.address">
+				<source>Add a single address</source>
+			</trans-unit>
+			<trans-unit id="pi1.settings.markertitle">
+				<source>Title for marker</source>
+			</trans-unit>
+			<trans-unit id="pi1.settings.markerdescription">
+				<source>Description for marker</source>
 			</trans-unit>
 		</body>
 	</file>

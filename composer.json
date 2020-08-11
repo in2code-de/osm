@@ -17,7 +17,8 @@
   "license": "GPL-2.0-or-later",
   "require": {
     "php": ">=7.2.0",
-    "typo3/cms-core": "^10.4"
+    "typo3/cms-core": "^10.4",
+    "ext-json": "*"
   },
   "replace": {
     "typo3-ter/osm": "self.version"

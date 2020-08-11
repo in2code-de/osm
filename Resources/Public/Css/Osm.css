@@ -1,0 +1,6 @@
+.olPopupCloseBox {
+    background-color: #880000;
+    content: "x";
+    color: red;
+    font-weight: bold;
+}
