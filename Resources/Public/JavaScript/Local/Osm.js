@@ -52,6 +52,11 @@ function Osm() {
   var markers = [];
 
   /**
+   * @type {string}
+   */
+  var markerGraphics = '';
+
+  /**
    * @param container
    */
   this.initializeMap = function(container) {
@@ -60,6 +65,7 @@ function Osm() {
     zoom = parseInt(container.getAttribute('data-osm-zoom'));
     marker = container.getAttribute('data-osm-marker') === '1';
     markerurl = container.getAttribute('data-osm-markerurl');
+    markerGraphics = container.getAttribute('data-osm-markergraphics');
     getMarkersFromAjaxAndCreateMap(container);
   };
 
@@ -148,7 +154,7 @@ function Osm() {
           description: label
         },
         {
-          externalGraphic: '/typo3conf/ext/osm/Resources/Public/JavaScript/Vendor/img/marker.png',
+          externalGraphic: markerGraphics,
           graphicHeight: 50,
           graphicWidth: 30,
           graphicXOffset: -15,
