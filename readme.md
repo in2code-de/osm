@@ -2,8 +2,8 @@
 
 ## Introduction
 
-A small but modern OpenStreetMap extension for TYPO3 (10 and newer). You can simple show a map with or without markers.
-If you want to show a marker, simple add an address in FlexForm or geo coordinates.
+A small but modern OpenStreetMap extension for TYPO3 (10 and newer). You can simply show a map with or without markers.
+If you want to show a marker, just add an address in FlexForm or geo coordinates.
 
 A second plugin allows you to show multiple markers from tt_address records (when tt_address.latitude and .longitude is
 filled).
@@ -71,7 +71,7 @@ plugin.tx_osm {
 
 ### How to define own css or js?
 
-CSS and JS is included via Layout html template. You can simple adjust the paths to your needs.
+CSS and JS is included via Layout html template. You can simply adjust the paths to your needs.
 
 ## Changelog
 
