@@ -20,9 +20,10 @@ class Markers
     public function getMarkers(int $contentIdentifier): array
     {
         $configuration = $this->getFlexFormFromContentElement($contentIdentifier);
-        $markers = [];
-        if (!empty($configuration['settings']['address'])) {
+        if ($this->isPlugin1($configuration)) {
             $markers = $this->buildFromPi1($configuration);
+        } else {
+            throw new \LogicException('Must be implemented first', 1597227207);
         }
         $markers = $this->convertAddressesToGeoCoordinates($markers);
         return $markers;
@@ -34,13 +35,7 @@ class Markers
      */
     protected function buildFromPi1(array $configuration): array
     {
-        return [
-            [
-                'address' => $configuration['settings']['address'],
-                'title' => $configuration['settings']['markertitle'],
-                'description' => $configuration['settings']['markerdescription']
-            ]
-        ];
+        return [$configuration['settings']];
     }
 
     /**
@@ -78,5 +73,14 @@ class Markers
         /** @var FlexFormService $flexFormService */
         $flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
         return $flexFormService->convertFlexFormContentToArray($xml);
+    }
+
+    /**
+     * @param array $configuration
+     * @return bool
+     */
+    protected function isPlugin1(array $configuration): bool
+    {
+        return isset($configuration['settings']['mode']);
     }
 }

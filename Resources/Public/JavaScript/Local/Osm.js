@@ -35,6 +35,13 @@ function Osm() {
   var markerurl = '';
 
   /**
+   * Add marker?
+   *
+   * @type {boolean}
+   */
+  var marker = false;
+
+  /**
    * @returns {void}
    */
   this.initialize = function() {
@@ -52,6 +59,7 @@ function Osm() {
     latitude = parseFloat(container.getAttribute('data-osm-default-latitude'));
     longitude = parseFloat(container.getAttribute('data-osm-default-longitude'));
     zoom = parseInt(container.getAttribute('data-osm-zoom'));
+    marker = container.getAttribute('data-osm-marker') === '1';
     markerurl = container.getAttribute('data-osm-markerurl');
   };
 
@@ -75,7 +83,9 @@ function Osm() {
     var mapnik = new OpenLayers.Layer.OSM();
     map.addLayer(mapnik);
 
-    addMarkers(map);
+    if (marker === true) {
+      addMarkers(map);
+    }
 
     map.setCenter(position, zoom);
   };
@@ -100,7 +110,7 @@ function Osm() {
           for (var i = 0; i < result.markers.length; i++) {
             var marker = result.markers[i];
             if (marker.latitude && marker.longitude) {
-              addMarker(map, marker.latitude, marker.longitude, marker.title, marker.description)
+              addMarker(map, marker.latitude, marker.longitude, marker.markertitle, marker.markerdescription)
             }
           }
         }
@@ -123,11 +133,18 @@ function Osm() {
     var fromProjection = new OpenLayers.Projection('EPSG:4326');
     var toProjection = new OpenLayers.Projection('EPSG:900913');
     var vectorLayer = new OpenLayers.Layer.Vector('Overlay');
+    title = title || '';
+    description = description || '';
+    var isLabelGiven = title !== '' || description !== '';
+    var label = null;
+    if (isLabelGiven) {
+      label = '<h5>' + title + '</h5>' + description;
+    }
 
     var feature = new OpenLayers.Feature.Vector(
       new OpenLayers.Geometry.Point(longitude, latitude).transform(fromProjection, toProjection),
       {
-        description: '<h5>' + title + '</h5>' + description
+        description: label
       },
       {
         externalGraphic: '/typo3conf/ext/osm/Resources/Public/JavaScript/Vendor/img/marker.png',
@@ -142,9 +159,11 @@ function Osm() {
     map.addLayer(vectorLayer);
 
 
-    var controls = {
-      selector: new OpenLayers.Control.SelectFeature(vectorLayer, {onSelect: createPopup, onUnselect: destroyPopup})
-    };
+    if (isLabelGiven) {
+      var controls = {
+        selector: new OpenLayers.Control.SelectFeature(vectorLayer, {onSelect: createPopup, onUnselect: destroyPopup})
+      };
+    }
 
     function createPopup(feature) {
       feature.popup = new OpenLayers.Popup.FramedCloud(

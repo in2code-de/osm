@@ -11,13 +11,37 @@
 				<source>Show a single address on a map</source>
 				<target state="translated">Zeige eine einzelne Adresse auf einer Karte</target>
 			</trans-unit>
-			<trans-unit id="pi1.settings.address">
-				<source>Add a single address</source>
+			<trans-unit id="pi1.settings.mode">
+				<source>Address or geo coordinates</source>
+				<target state="translated">Adresse oder Geo-Koordinaten</target>
+			</trans-unit>
+			<trans-unit id="pi1.settings.mode.0">
+				<source>Enter an address</source>
 				<target state="translated">Adresse eintragen</target>
+			</trans-unit>
+			<trans-unit id="pi1.settings.mode.1">
+				<source>Enter geo coordinates</source>
+				<target state="translated">Geo-Koordinaten eintragen</target>
+			</trans-unit>
+			<trans-unit id="pi1.settings.address">
+				<source>Full address</source>
+				<target state="translated">Volle Adresse</target>
+			</trans-unit>
+			<trans-unit id="pi1.settings.latitude">
+				<source>Latitude</source>
+				<target state="translated">Längengrad</target>
+			</trans-unit>
+			<trans-unit id="pi1.settings.longitude">
+				<source>Longitude</source>
+				<target state="translated">Breitengrad</target>
 			</trans-unit>
 			<trans-unit id="pi1.settings.zoom">
 				<source>Zoom factor</source>
 				<target state="translated">Zoom Faktor</target>
+			</trans-unit>
+			<trans-unit id="pi1.settings.marker">
+				<source>Show a marker</source>
+				<target state="translated">Zeige eine Markierung</target>
 			</trans-unit>
 			<trans-unit id="pi1.settings.markertitle">
 				<source>Title for marker</source>

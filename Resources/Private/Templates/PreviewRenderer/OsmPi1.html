@@ -1,6 +1,16 @@
 {namespace osm=In2code\Osm\ViewHelpers}
 <osm:backend.editLink identifier="{data.uid}">
     <f:if condition="{data.header}"><h2 style="margin-top: 12px;">{data.header}</h2></f:if>
-    <h4>OpenStreetMap: Show a single address</h4>
-    <p>{flexForm.settings.address}</p>
+    <h3>OpenStreetMap: Show a single address</h3>
+    <f:if condition="{flexForm.settings.mode} == 0">
+        <f:then>
+            <p>{flexForm.settings.address}</p>
+        </f:then>
+        <f:else>
+            <p>
+                {flexForm.settings.latitude}<br />
+                {flexForm.settings.longitude}
+            </p>
+        </f:else>
+    </f:if>
 </osm:backend.editLink>

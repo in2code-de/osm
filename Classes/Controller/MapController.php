@@ -25,6 +25,7 @@ class MapController extends ActionController
     /**
      * MapController constructor.
      * @param GeoConverter $geoConverter
+     * @param Markers $markers
      */
     public function __construct(GeoConverter $geoConverter, Markers $markers)
     {
@@ -33,17 +34,28 @@ class MapController extends ActionController
     }
 
     /**
+     * Show a map with a single marker in Pi1 or just show the map without marker
+     *
      * @return void
      * @throws RequestFailedException
      */
     public function singleAddressAction(): void
     {
-        $result = $this->geoConverter->convertAddressToCoordinates($this->settings['address']);
+        $coordinates = $this->geoConverter->getCoordinatesFromSettings($this->settings);
         $this->view->assignMultiple([
-            'latitude' => $result[0],
-            'longitude' => $result[1],
+            'latitude' => $coordinates[0],
+            'longitude' => $coordinates[1],
             'data' => $this->configurationManager->getContentObject()->data
         ]);
+    }
+
+    /**
+     * Show a map with a more markers in Pi2
+     *
+     * @return void
+     */
+    public function multipleAddressesAction(): void
+    {
     }
 
     /**

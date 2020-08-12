@@ -9,8 +9,29 @@
 			<trans-unit id="pi1.description">
 				<source>Show a single address on a map</source>
 			</trans-unit>
+			<trans-unit id="pi1.settings.mode">
+				<source>Address or geo coordinates</source>
+			</trans-unit>
+			<trans-unit id="pi1.settings.mode.0">
+				<source>Enter an address</source>
+			</trans-unit>
+			<trans-unit id="pi1.settings.mode.1">
+				<source>Enter geo coordinates</source>
+			</trans-unit>
 			<trans-unit id="pi1.settings.address">
-				<source>Add a single address</source>
+				<source>Full address</source>
+			</trans-unit>
+			<trans-unit id="pi1.settings.latitude">
+				<source>Latitude</source>
+			</trans-unit>
+			<trans-unit id="pi1.settings.longitude">
+				<source>Longitude</source>
+			</trans-unit>
+			<trans-unit id="pi1.settings.zoom">
+				<source>Zoom factor</source>
+			</trans-unit>
+			<trans-unit id="pi1.settings.marker">
+				<source>Show a marker</source>
 			</trans-unit>
 			<trans-unit id="pi1.settings.markertitle">
 				<source>Title for marker</source>
