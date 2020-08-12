@@ -163,22 +163,26 @@ function Osm() {
         };
 
         function createPopup(feature) {
-          feature.popup = new OpenLayers.Popup.FramedCloud(
-            'pop',
-            feature.geometry.getBounds().getCenterLonLat(),
-            null,
-            '<div class="markerContent">' + feature.attributes.description + '</div>',
-            null,
-            true,
-            function() {
-              controls['selector'].unselectAll();
-            }
-          );
-          map.addPopup(feature.popup);
+          if (feature.attributes.description !== null) {
+            feature.popup = new OpenLayers.Popup.FramedCloud(
+              'pop',
+              feature.geometry.getBounds().getCenterLonLat(),
+              null,
+              '<div class="markerContent">' + feature.attributes.description + '</div>',
+              null,
+              true,
+              function() {
+                controls['selector'].unselectAll();
+              }
+            );
+            map.addPopup(feature.popup);
+          }
         }
         function destroyPopup(feature) {
-          feature.popup.destroy();
-          feature.popup = null;
+          if (feature.attributes.description !== null) {
+            feature.popup.destroy();
+            feature.popup = null;
+          }
         }
 
         map.addControl(controls['selector']);
