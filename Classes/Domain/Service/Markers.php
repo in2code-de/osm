@@ -2,8 +2,10 @@
 declare(strict_types=1);
 namespace In2code\Osm\Domain\Service;
 
+use In2code\Osm\Exception\ConfigurationMissingException;
 use In2code\Osm\Exception\RequestFailedException;
 use In2code\Osm\Utility\DatabaseUtility;
+use In2code\Osm\Utility\StringUtility;
 use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -16,14 +18,15 @@ class Markers
      * @param int $contentIdentifier
      * @return array
      * @throws RequestFailedException
+     * @throws ConfigurationMissingException
      */
     public function getMarkers(int $contentIdentifier): array
     {
         $configuration = $this->getFlexFormFromContentElement($contentIdentifier);
-        if ($this->isPlugin1($configuration)) {
+        if ($this->isPlugin1($contentIdentifier)) {
             $markers = $this->buildFromPi1($configuration);
         } else {
-            throw new \LogicException('Must be implemented first', 1597227207);
+            $markers = $this->getMarkersFromAddresses($configuration);
         }
         $markers = $this->convertAddressesToGeoCoordinates($markers);
         return $markers;
@@ -36,6 +39,26 @@ class Markers
     protected function buildFromPi1(array $configuration): array
     {
         return [$configuration['settings']];
+    }
+
+    /**
+     * @param array $configuration
+     * @return array
+     * @throws ConfigurationMissingException
+     */
+    protected function getMarkersFromAddresses(array $configuration): array
+    {
+        $list = StringUtility::integerList($configuration['settings']['addresses']);
+        if ($list === '') {
+            throw new ConfigurationMissingException('No addresses configured', 1597233868);
+        }
+        $queryBuilder = DatabaseUtility::getQueryBuilderForTable('tt_address');
+        return (array)$queryBuilder
+            ->select('name as markertitle', 'description as markerdescription', 'latitude', 'longitude')
+            ->from('tt_address')
+            ->where('uid in (' . $list . ')')
+            ->execute()
+            ->fetchAll();
     }
 
     /**
@@ -52,6 +75,9 @@ class Markers
                 $coordinates = $geoConverter->convertAddressToCoordinates($marker['address']);
                 $marker['latitude'] = $coordinates[0];
                 $marker['longitude'] = $coordinates[1];
+            } else {
+                $marker['latitude'] = (float)$marker['latitude'];
+                $marker['longitude'] = (float)$marker['longitude'];
             }
         }
         return $markers;
@@ -76,11 +102,17 @@ class Markers
     }
 
     /**
-     * @param array $configuration
+     * @param int $contentIdentifier
      * @return bool
      */
-    protected function isPlugin1(array $configuration): bool
+    protected function isPlugin1(int $contentIdentifier): bool
     {
-        return isset($configuration['settings']['mode']);
+        $queryBuilder = DatabaseUtility::getQueryBuilderForTable('tt_content', true);
+        return (string)$queryBuilder
+            ->select('list_type')
+            ->from('tt_content')
+            ->where('uid=' . (int)$contentIdentifier . ' and CType="list"')
+            ->execute()
+            ->fetchColumn() === 'osm_pi1';
     }
 }

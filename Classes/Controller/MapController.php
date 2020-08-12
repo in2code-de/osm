@@ -4,6 +4,7 @@ namespace In2code\Osm\Controller;
 
 use In2code\Osm\Domain\Service\GeoConverter;
 use In2code\Osm\Domain\Service\Markers;
+use In2code\Osm\Exception\ConfigurationMissingException;
 use In2code\Osm\Exception\RequestFailedException;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
@@ -50,18 +51,24 @@ class MapController extends ActionController
     }
 
     /**
-     * Show a map with a more markers in Pi2
+     * Show a map with more markers in Pi2
      *
      * @return void
      */
     public function multipleAddressesAction(): void
     {
+        $this->view->assignMultiple([
+            'data' => $this->configurationManager->getContentObject()->data
+        ]);
     }
 
     /**
+     * Called from AJAX to get a list of markers to insert
+     *
      * @param int $contentIdentifier
      * @return string
      * @throws RequestFailedException
+     * @throws ConfigurationMissingException
      */
     public function getMarkersAction(int $contentIdentifier): string
     {

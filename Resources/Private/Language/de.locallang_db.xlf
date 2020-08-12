@@ -51,6 +51,28 @@
 				<source>Description for marker</source>
 				<target state="translated">Beschreibung Marker</target>
 			</trans-unit>
+
+			<trans-unit id="pi2.title">
+				<source>OpenStreetMap Multiple Addresses</source>
+				<target state="translated">OpenStreetMap multiple Adressen</target>
+			</trans-unit>
+			<trans-unit id="pi2.description">
+				<source>Show more then only one address on a map</source>
+				<target state="translated">Zeige mehr als nur eine Adresse auf einer Karte</target>
+			</trans-unit>
+			<trans-unit id="pi2.settings.addresses">
+				<source>Select addresses</source>
+				<target state="translated">Adressen auswählen</target>
+			</trans-unit>
+			<trans-unit id="pi2.settings.zoom">
+				<source>Zoom factor</source>
+				<target state="translated">Zoom Faktor</target>
+			</trans-unit>
+
+			<trans-unit id="pleaseChoose">
+				<source>Please choose...</source>
+				<target state="translated">Bitte auswählen...</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

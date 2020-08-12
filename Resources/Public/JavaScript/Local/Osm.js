@@ -7,6 +7,11 @@ function Osm() {
   'use strict';
 
   /**
+   * @type {null}
+   */
+  var map = null;
+
+  /**
    * Initial map center position
    *
    * @type {number}
@@ -42,25 +47,55 @@ function Osm() {
   var marker = false;
 
   /**
-   * @returns {void}
+   * @type {*[]}
    */
-  this.initialize = function() {
-    var containers = document.querySelectorAll('[data-osm="map"]');
-    for (var i = 0; i < containers.length; i++) {
-      initMap(containers[i]);
-      createMap(containers[i]);
-    }
-  };
+  var markers = [];
 
   /**
    * @param container
    */
-  var initMap = function(container) {
+  this.initializeMap = function(container) {
     latitude = parseFloat(container.getAttribute('data-osm-default-latitude'));
     longitude = parseFloat(container.getAttribute('data-osm-default-longitude'));
     zoom = parseInt(container.getAttribute('data-osm-zoom'));
     marker = container.getAttribute('data-osm-marker') === '1';
     markerurl = container.getAttribute('data-osm-markerurl');
+    getMarkersFromAjaxAndCreateMap(container);
+  };
+
+  /**
+   * @params {string} container
+   * @returns {void}
+   */
+  var getMarkersFromAjaxAndCreateMap = function(container) {
+    if (markerurl !== '') {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+          let result = JSON.parse(this.responseText);
+          markers = result.markers;
+          setDefaultLatitudeAndLongitude(markers);
+          createMap(container);
+        }
+      };
+      xhttp.open('POST', markerurl, true);
+      xhttp.send();
+    } else {
+      console.log('No ajax URI given!');
+    }
+  };
+
+  /**
+   * @param markers
+   */
+  var setDefaultLatitudeAndLongitude = function(markers) {
+    var standard = getAverageGeolocation(markers);
+    if (standard.latitude !== 0 && latitude !== 0.0) {
+      latitude = standard.latitude;
+    }
+    if (standard.longitude !== 0 && longitude !== 0.0) {
+      longitude = standard.longitude;
+    }
   };
 
   /**
@@ -71,7 +106,7 @@ function Osm() {
     var toProjection = new OpenLayers.Projection('EPSG:900913');
     var position = new OpenLayers.LonLat(longitude, latitude).transform(fromProjection, toProjection);
 
-    var map = new OpenLayers.Map(container, {
+    map = new OpenLayers.Map(container, {
       controls: [],
       numZoomLevels: 18,
       maxResolution: 156543,
@@ -84,7 +119,7 @@ function Osm() {
     map.addLayer(mapnik);
 
     if (marker === true) {
-      addMarkers(map);
+      addMarkers();
     }
 
     map.setCenter(position, zoom);
@@ -93,102 +128,112 @@ function Osm() {
   /**
    * Add all markers to map
    */
-  var addMarkers = function(map) {
-    getMarkersFromAjax(map);
-  };
-
-  /**
-   * @params {string} uri
-   * @returns {void}
-   */
-  var getMarkersFromAjax = function(map) {
-    if (markerurl !== '') {
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if (this.readyState === 4 && this.status === 200) {
-          var result = JSON.parse(this.responseText);
-          for (var i = 0; i < result.markers.length; i++) {
-            var marker = result.markers[i];
-            if (marker.latitude && marker.longitude) {
-              addMarker(map, marker.latitude, marker.longitude, marker.markertitle, marker.markerdescription)
-            }
-          }
-        }
-      };
-      xhttp.open('POST', markerurl, true);
-      xhttp.send();
-    } else {
-      console.log('No ajax URI given!');
-    }
-  };
-
-  /**
-   * @param map
-   * @param latitude
-   * @param longitude
-   * @param title
-   * @param description
-   */
-  var addMarker = function(map, latitude, longitude, title, description) {
-    var fromProjection = new OpenLayers.Projection('EPSG:4326');
-    var toProjection = new OpenLayers.Projection('EPSG:900913');
+  var addMarkers = function() {
     var vectorLayer = new OpenLayers.Layer.Vector('Overlay');
-    title = title || '';
-    description = description || '';
-    var isLabelGiven = title !== '' || description !== '';
-    var label = null;
-    if (isLabelGiven) {
-      label = '<h5>' + title + '</h5>' + description;
-    }
 
-    var feature = new OpenLayers.Feature.Vector(
-      new OpenLayers.Geometry.Point(longitude, latitude).transform(fromProjection, toProjection),
-      {
-        description: label
-      },
-      {
-        externalGraphic: '/typo3conf/ext/osm/Resources/Public/JavaScript/Vendor/img/marker.png',
-        graphicHeight: 50,
-        graphicWidth: 30,
-        graphicXOffset: -15,
-        graphicYOffset: -48
+
+    for (var i = 0; i < markers.length; i++) {
+      let marker = markers[i];
+      var label = null;
+      if (marker.markertitle || marker.markerdescription) {
+        label = '<h5>' + marker.markertitle + '</h5>' + marker.markerdescription;
       }
-    );
-    vectorLayer.addFeatures(feature);
 
-    map.addLayer(vectorLayer);
-
-
-    if (isLabelGiven) {
-      var controls = {
-        selector: new OpenLayers.Control.SelectFeature(vectorLayer, {onSelect: createPopup, onUnselect: destroyPopup})
-      };
-    }
-
-    function createPopup(feature) {
-      feature.popup = new OpenLayers.Popup.FramedCloud(
-        'pop',
-        feature.geometry.getBounds().getCenterLonLat(),
-        null,
-        '<div class="markerContent">' + feature.attributes.description + '</div>',
-        null,
-        true,
-        function() {
-          controls['selector'].unselectAll();
+      var feature = new OpenLayers.Feature.Vector(
+        new OpenLayers.Geometry.Point(marker.longitude, marker.latitude).transform(
+          new OpenLayers.Projection('EPSG:4326'),
+          new OpenLayers.Projection('EPSG:900913')
+        ),
+        {
+          description: label
+        },
+        {
+          externalGraphic: '/typo3conf/ext/osm/Resources/Public/JavaScript/Vendor/img/marker.png',
+          graphicHeight: 50,
+          graphicWidth: 30,
+          graphicXOffset: -15,
+          graphicYOffset: -48
         }
       );
-      map.addPopup(feature.popup);
+      vectorLayer.addFeatures(feature);
+
+      if (label !== null) {
+        var controls = {
+          selector: new OpenLayers.Control.SelectFeature(vectorLayer, {onSelect: createPopup, onUnselect: destroyPopup})
+        };
+
+        function createPopup(feature) {
+          feature.popup = new OpenLayers.Popup.FramedCloud(
+            'pop',
+            feature.geometry.getBounds().getCenterLonLat(),
+            null,
+            '<div class="markerContent">' + feature.attributes.description + '</div>',
+            null,
+            true,
+            function() {
+              controls['selector'].unselectAll();
+            }
+          );
+          map.addPopup(feature.popup);
+        }
+        function destroyPopup(feature) {
+          feature.popup.destroy();
+          feature.popup = null;
+        }
+
+        map.addControl(controls['selector']);
+        controls['selector'].activate();
+      }
+
     }
 
-    function destroyPopup(feature) {
-      feature.popup.destroy();
-      feature.popup = null;
+    map.addLayer(vectorLayer);
+  };
+
+  /**
+   * Calculate the center/average of multiple GeoLocation coordinates
+   * Expects an array of objects with .latitude and .longitude properties
+   *
+   * @url http://stackoverflow.com/a/14231286/538646
+   */
+  var getAverageGeolocation = function(coords) {
+    if (coords.length === 1) {
+      return coords[0];
     }
 
-    map.addControl(controls['selector']);
-    controls['selector'].activate();
+    let x = 0.0;
+    let y = 0.0;
+    let z = 0.0;
+
+    for (let coord of coords) {
+      let latitude = coord.latitude * Math.PI / 180;
+      let longitude = coord.longitude * Math.PI / 180;
+
+      x += Math.cos(latitude) * Math.cos(longitude);
+      y += Math.cos(latitude) * Math.sin(longitude);
+      z += Math.sin(latitude);
+    }
+
+    let total = coords.length;
+
+    x = x / total;
+    y = y / total;
+    z = z / total;
+
+    let centralLongitude = Math.atan2(y, x);
+    let centralSquareRoot = Math.sqrt(x * x + y * y);
+    let centralLatitude = Math.atan2(z, centralSquareRoot);
+
+    return {
+      latitude: centralLatitude * 180 / Math.PI,
+      longitude: centralLongitude * 180 / Math.PI
+    };
   };
 }
 
-var osm = new Osm();
-osm.initialize();
+var containers = document.querySelectorAll('[data-osm="map"]');
+for (var i = 0; i < containers.length; i++) {
+  var osm = new Osm();
+  osm.initializeMap(containers[i]);
+}
+

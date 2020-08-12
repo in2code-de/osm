@@ -4,14 +4,10 @@ namespace In2code\Osm\Hooks\PageLayoutView;
 
 use In2code\Osm\Exception\ConfigurationMissingException;
 use In2code\Osm\Exception\TemplateFileMissingException;
-use In2code\Osm\Utility\DatabaseUtility;
 use TYPO3\CMS\Backend\View\PageLayoutView;
 use TYPO3\CMS\Backend\View\PageLayoutViewDrawItemHookInterface;
-use TYPO3\CMS\Core\Resource\FileReference;
-use TYPO3\CMS\Core\Resource\FileRepository;
 use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
@@ -60,7 +56,6 @@ abstract class AbstractPreviewRenderer implements PageLayoutViewDrawItemHookInte
      * @param array $row Record row of tt_content
      *
      * @return void
-     * @throws Exception
      * @throws TemplateFileMissingException
      */
     public function preProcess(
@@ -94,9 +89,10 @@ abstract class AbstractPreviewRenderer implements PageLayoutViewDrawItemHookInte
     {
         $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
         $standaloneView->setTemplatePathAndFilename($this->getTemplateFile());
+        $flexForm = $this->getFlexForm();
         $standaloneView->assignMultiple($this->getAssignmentsForTemplate() + [
             'data' => $this->data,
-            'flexForm' => $this->getFlexForm()
+            'flexForm' => $flexForm
         ]);
         return $standaloneView->render();
     }

@@ -1,3 +1,7 @@
+.osm-map {
+    height: 400px;
+}
+
 .olPopupCloseBox {
     right: 10px !important;
     width: 20px !important;

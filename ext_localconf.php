@@ -16,6 +16,15 @@ call_user_func(
                 'Map' => 'singleAddress'
             ]
         );
+        if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('tt_address')) {
+            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+                'In2code.osm',
+                'Pi2',
+                [
+                    'Map' => 'multipleAddresses'
+                ]
+            );
+        }
 
         /**
          * Add page TSConfig

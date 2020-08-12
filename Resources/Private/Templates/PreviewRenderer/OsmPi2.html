@@ -1,0 +1,22 @@
+{namespace osm=In2code\Osm\ViewHelpers}
+<osm:backend.editLink identifier="{data.uid}">
+    <f:if condition="{data.header}"><h2 style="margin-top: 12px;">{data.header}</h2></f:if>
+    <h3>
+        <f:image src="EXT:osm/Resources/Public/Icons/Extension.svg" width="30" alt="OSM Extension" />
+        <f:translate key="LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi2.title">OSM</f:translate>
+    </h3>
+    <f:if condition="{addresses}">
+        <f:then>
+            <ul class="list-group">
+                <f:for each="{addresses}" as="address">
+                    <li class="list-group-item"><f:if condition="{address.name}">{address.name} </f:if>({address.uid})</li>
+                </f:for>
+            </ul>
+        </f:then>
+        <f:else>
+            <div class="alert alert-warning" role="alert">
+                No addresses selected
+            </div>
+        </f:else>
+    </f:if>
+</osm:backend.editLink>

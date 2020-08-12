@@ -1,0 +1,21 @@
+<f:layout name="Default" />
+
+
+<f:section name="main">
+    <f:if condition="{settings.addresses}">
+        <f:then>
+            <div
+                class="osm-map"
+                data-osm="map"
+                data-osm-marker="1"
+                data-osm-markerurl="{f:uri.page(additionalParams: '{type:1597149189,tx_osm_pi1:\'{contentIdentifier:data.uid}\'}')}"
+                data-osm-zoom="{settings.zoom}"></div>
+        </f:then>
+        <f:else>
+            <div class="alert alert-warning" role="alert">
+                <h4 class="alert-heading">No addresses given</h4>
+                <p>Please select some tt_address records with filled latitude and longitude fields!</p>
+            </div>
+        </f:else>
+    </f:if>
+</f:section>

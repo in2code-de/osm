@@ -39,6 +39,23 @@
 			<trans-unit id="pi1.settings.markerdescription">
 				<source>Description for marker</source>
 			</trans-unit>
+
+			<trans-unit id="pi2.title">
+				<source>OpenStreetMap Multiple Addresses</source>
+			</trans-unit>
+			<trans-unit id="pi2.description">
+				<source>Show more then only one address on a map</source>
+			</trans-unit>
+			<trans-unit id="pi2.addresses">
+				<source>Select addresses</source>
+			</trans-unit>
+			<trans-unit id="pi2.zoom">
+				<source>Zoom factor</source>
+			</trans-unit>
+
+			<trans-unit id="pleaseChoose">
+				<source>Please choose...</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

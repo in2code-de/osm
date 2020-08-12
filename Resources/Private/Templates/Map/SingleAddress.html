@@ -1,19 +1,24 @@
+<f:layout name="Default" />
 
-<f:if condition="{latitude} && {longitude}">
-    <f:then>
-        <f:render section="map" arguments="{_all}"/>
-    </f:then>
-    <f:else>
-        <div class="alert alert-warning" role="alert">
-            <h4 class="alert-heading">Address not given</h4>
-            <p>Given address could not converted into geo coordinates!</p>
-        </div>
-    </f:else>
-</f:if>
+
+<f:section name="main">
+    <f:if condition="{latitude} && {longitude}">
+        <f:then>
+            <f:render section="map" arguments="{_all}"/>
+        </f:then>
+        <f:else>
+            <div class="alert alert-warning" role="alert">
+                <h4 class="alert-heading">Address not given</h4>
+                <p>Given address could not converted into geo coordinates!</p>
+            </div>
+        </f:else>
+    </f:if>
+</f:section>
 
 
 <f:section name="map">
     <div
+        class="osm-map"
         data-osm="map"
         data-osm-default-latitude="{latitude}"
         data-osm-default-longitude="{longitude}"
@@ -21,10 +26,5 @@
         data-osm-marker-description="{settings.markerdescription}"
         data-osm-marker-title="{settings.markertitle}"
         data-osm-markerurl="{f:uri.page(additionalParams: '{type:1597149189,tx_osm_pi1:\'{contentIdentifier:data.uid}\'}')}"
-        data-osm-zoom="{settings.zoom}"
-        style="height:400px"></div>
-
-    <f:asset.css identifier="osm" href="EXT:osm/Resources/Public/Css/Osm.css" />
-    <f:asset.script identifier="osm-openlayers" src="EXT:osm/Resources/Public/JavaScript/Vendor/OpenLayers.js" />
-    <f:asset.script identifier="osm-map" src="EXT:osm/Resources/Public/JavaScript/Local/Osm.js" />
+        data-osm-zoom="{settings.zoom}"></div>
 </f:section>

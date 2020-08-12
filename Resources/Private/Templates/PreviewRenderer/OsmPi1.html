@@ -1,7 +1,10 @@
 {namespace osm=In2code\Osm\ViewHelpers}
 <osm:backend.editLink identifier="{data.uid}">
     <f:if condition="{data.header}"><h2 style="margin-top: 12px;">{data.header}</h2></f:if>
-    <h3>OpenStreetMap: Show a single address</h3>
+    <h3>
+        <f:image src="EXT:osm/Resources/Public/Icons/Extension.svg" width="30" alt="OSM Extension" />
+        <f:translate key="LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.title">OSM</f:translate>
+    </h3>
     <f:if condition="{flexForm.settings.mode} == 0">
         <f:then>
             <p>{flexForm.settings.address}</p>
