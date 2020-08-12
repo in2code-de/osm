@@ -15,5 +15,12 @@ call_user_func(
             \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
             ['source' => 'EXT:osm/Resources/Public/Icons/Extension.svg']
         );
+
+        /**
+         * Register own preview renderer for content elements
+         */
+        $layout = 'cms/layout/class.tx_cms_layout.php';
+        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$layout]['tt_content_drawItem']['ce.stage'] =
+            \In2code\Osm\Hooks\PageLayoutView\Plugin1PreviewRenderer::class;
     }
 );
