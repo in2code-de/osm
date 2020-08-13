@@ -77,4 +77,5 @@ CSS and JS is included via Layout html template. You can simply adjust the paths
 
 | Version    | Date       | State      | Description                                                                                                                                                                                |
 | ---------- | ---------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1.1.0      | 2020-08-13 | Task       | Some small improvements (marker image with outline, some adjustments of the views in backend)                                                                                              |
 | 1.0.0      | 2020-08-12 | Task       | Initial release                                                                                                                                                                            |
