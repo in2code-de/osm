@@ -7,13 +7,34 @@
     </h3>
     <f:if condition="{flexForm.settings.mode} == 0">
         <f:then>
-            <p>{flexForm.settings.address}</p>
+            <f:if condition="{flexForm.settings.address}">
+                <f:then>
+                    <p>{flexForm.settings.address}</p>
+                </f:then>
+                <f:else>
+                    <f:render section="failure" arguments="{_all}"/>
+                </f:else>
+            </f:if>
         </f:then>
         <f:else>
-            <p>
-                {flexForm.settings.latitude}<br />
-                {flexForm.settings.longitude}
-            </p>
+            <f:if condition="{flexForm.settings.latitude} && {flexForm.settings.longitude}">
+                <f:then>
+                    <p>
+                        {flexForm.settings.latitude}<br />
+                        {flexForm.settings.longitude}
+                    </p>
+                </f:then>
+                <f:else>
+                    <f:render section="failure" arguments="{_all}"/>
+                </f:else>
+            </f:if>
         </f:else>
     </f:if>
 </osm:backend.editLink>
+
+
+<f:section name="failure">
+    <div class="alert alert-warning" role="alert">
+        No address or geo coordinates given
+    </div>
+</f:section>
