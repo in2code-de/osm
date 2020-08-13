@@ -4,6 +4,7 @@ namespace In2code\Osm\Domain\Service;
 
 use In2code\Osm\Exception\ConfigurationMissingException;
 use In2code\Osm\Exception\RequestFailedException;
+use In2code\Osm\Utility\ArrayUtility;
 use In2code\Osm\Utility\DatabaseUtility;
 use In2code\Osm\Utility\StringUtility;
 use TYPO3\CMS\Core\Service\FlexFormService;
@@ -29,6 +30,7 @@ class Markers
             $markers = $this->getMarkersFromAddresses($configuration);
         }
         $markers = $this->convertAddressesToGeoCoordinates($markers);
+        $markers = ArrayUtility::htmlSpecialCharsOnArray($markers);
         return $markers;
     }
 
