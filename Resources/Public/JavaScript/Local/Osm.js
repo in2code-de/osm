@@ -155,10 +155,10 @@ function Osm() {
         },
         {
           externalGraphic: markerGraphics,
-          graphicHeight: 50,
-          graphicWidth: 30,
+          graphicHeight: 38,
+          graphicWidth: 23,
           graphicXOffset: -15,
-          graphicYOffset: -48
+          graphicYOffset: -36
         }
       );
       vectorLayer.addFeatures(feature);
