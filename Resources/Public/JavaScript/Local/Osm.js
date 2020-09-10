@@ -121,7 +121,15 @@ function Osm() {
     });
     map.addControl(new OpenLayers.Control.PanZoomBar());
     map.addControl(new OpenLayers.Control.Navigation());
-    var mapnik = new OpenLayers.Layer.OSM();
+    var mapnik = new OpenLayers.Layer.OSM(
+      'OpenStreetMap',
+      [
+        '//a.tile.openstreetmap.org/${z}/${x}/${y}.png',
+        '//b.tile.openstreetmap.org/${z}/${x}/${y}.png',
+        '//c.tile.openstreetmap.org/${z}/${x}/${y}.png'
+      ],
+      null
+    );
     map.addLayer(mapnik);
 
     if (marker === true) {
