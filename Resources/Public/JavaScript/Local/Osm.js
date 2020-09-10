@@ -174,7 +174,7 @@ function Osm() {
               'pop',
               feature.geometry.getBounds().getCenterLonLat(),
               null,
-              '<div class="markerContent">' + feature.attributes.description + '</div>',
+              '<div class="markerContent">' + nl2br(feature.attributes.description, true, false) + '</div>',
               null,
               true,
               function() {
@@ -198,6 +198,20 @@ function Osm() {
     }
 
     map.addLayer(vectorLayer);
+  };
+
+  /**
+   * This function is same as PHP's nl2br() with default parameters.
+   *
+   * @param {string} str Input text
+   * @param {boolean} replaceMode Use replace instead of insert
+   * @param {boolean} isXhtml Use XHTML
+   * @return {string} Filtered text
+   */
+  var nl2br = function(str, replaceMode, isXhtml) {
+    var breakTag = (isXhtml) ? '<br />' : '<br>';
+    var replaceStr = (replaceMode) ? '$1'+ breakTag : '$1'+ breakTag +'$2';
+    return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, replaceStr);
   };
 
   /**
