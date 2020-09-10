@@ -28,10 +28,6 @@ Add this extension via composer (TYPO3 in classic mode could work but is not sup
 
 `composer require in2code/osm`
 
-## FAQ
-
-### TypeNum in siteconfiguration?
-
 Don't forget to add typeNum 1597149189 for AJAX requests for the markers to your siteconfiguration like:
 
 ```
@@ -49,6 +45,8 @@ routeEnhancers:
       'markers.json': 1597149189
 ...
 ```
+
+## FAQ
 
 ### How to overwrite paths?
 
@@ -72,6 +70,21 @@ plugin.tx_osm {
 ### How to define own css or js?
 
 CSS and JS is included via Layout html template. You can simply adjust the paths to your needs.
+
+### Filter address in Pi2 to some pages
+
+If you don't want to present all available tt_address records in your FlexForm selection for your editors, you can
+filter it via Page TSconfig to one or more pages like:
+
+```
+tx_osm {
+  flexform {
+    pi2 {
+      addressPageIdentifiers = 2,3,4
+    }
+  }
+}
+```
 
 ## Changelog
 

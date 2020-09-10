@@ -17,12 +17,7 @@
                             <config>
                                 <type>select</type>
                                 <renderType>selectMultipleSideBySide</renderType>
-                                <items type="array">
-                                    <numIndex index="0" type="array">
-                                        <numIndex index="0">LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pleaseChoose</numIndex>
-                                        <numIndex index="1"></numIndex>
-                                    </numIndex>
-                                </items>
+                                <items type="array"></items>
                                 <maxitems>100</maxitems>
                                 <size>10</size>
                                 <minitems>0</minitems>
@@ -30,6 +25,7 @@
                                 <itemListStyle>width:300px;</itemListStyle>
                                 <foreign_table>tt_address</foreign_table>
                                 <foreign_table_where>AND tt_address.deleted = 0 AND tt_address.hidden = 0 order by tt_address.name</foreign_table_where>
+                                <itemsProcFunc>In2code\Osm\Tca\FilterAddresses->filter</itemsProcFunc>
                             </config>
                         </TCEforms>
                     </settings.addresses>

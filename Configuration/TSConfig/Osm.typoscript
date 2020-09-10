@@ -21,3 +21,12 @@ mod.wizards.newContentElement.wizardItems.plugins {
     }
   }
 }
+
+tx_osm {
+  flexform {
+    pi2 {
+      # Filter addresses in Pi2 FlexForm by allowed page identifiers
+      addressPageIdentifiers =
+    }
+  }
+}
