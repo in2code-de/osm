@@ -78,7 +78,7 @@ function Osm() {
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
-          let result = JSON.parse(this.responseText);
+          var result = JSON.parse(this.responseText);
           markers = result.markers;
           setDefaultLatitudeAndLongitude(markers);
           createMap(container);
@@ -139,7 +139,7 @@ function Osm() {
 
 
     for (var i = 0; i < markers.length; i++) {
-      let marker = markers[i];
+      var marker = markers[i];
       var label = null;
       if (marker.markertitle || marker.markerdescription) {
         label = '<h5>' + marker.markertitle + '</h5>' + marker.markerdescription;
@@ -211,28 +211,28 @@ function Osm() {
       return coords[0];
     }
 
-    let x = 0.0;
-    let y = 0.0;
-    let z = 0.0;
+    var x = 0.0;
+    var y = 0.0;
+    var z = 0.0;
 
-    for (let coord of coords) {
-      let latitude = coord.latitude * Math.PI / 180;
-      let longitude = coord.longitude * Math.PI / 180;
+    for (var coord of coords) {
+      var latitude = coord.latitude * Math.PI / 180;
+      var longitude = coord.longitude * Math.PI / 180;
 
       x += Math.cos(latitude) * Math.cos(longitude);
       y += Math.cos(latitude) * Math.sin(longitude);
       z += Math.sin(latitude);
     }
 
-    let total = coords.length;
+    var total = coords.length;
 
     x = x / total;
     y = y / total;
     z = z / total;
 
-    let centralLongitude = Math.atan2(y, x);
-    let centralSquareRoot = Math.sqrt(x * x + y * y);
-    let centralLatitude = Math.atan2(z, centralSquareRoot);
+    var centralLongitude = Math.atan2(y, x);
+    var centralSquareRoot = Math.sqrt(x * x + y * y);
+    var centralLatitude = Math.atan2(z, centralSquareRoot);
 
     return {
       latitude: centralLatitude * 180 / Math.PI,
