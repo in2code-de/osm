@@ -8,6 +8,7 @@ use In2code\Osm\Exception\RequestFailedException;
 use In2code\Osm\Utility\ArrayUtility;
 use In2code\Osm\Utility\DatabaseUtility;
 use In2code\Osm\Utility\StringUtility;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -16,6 +17,20 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class Markers
 {
+    /**
+     * @var EventDispatcherInterface
+     */
+    protected $evenDispatcher = null;
+
+    /**
+     * Markers constructor.
+     * @param EventDispatcherInterface $evenDispatcher
+     */
+    public function __construct(EventDispatcherInterface $evenDispatcher)
+    {
+        $this->evenDispatcher = $evenDispatcher;
+    }
+
     /**
      * @param int $contentIdentifier
      * @return MarkerContainer
@@ -34,6 +49,7 @@ class Markers
         $markers = ArrayUtility::htmlSpecialCharsOnArray($markers);
         /** @var MarkerContainer $markerContainer */
         $markerContainer = GeneralUtility::makeInstance(MarkerContainer::class, $markers);
+        $this->evenDispatcher->dispatch($markerContainer);
         return $markerContainer;
     }
 
