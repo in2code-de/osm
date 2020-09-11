@@ -72,7 +72,7 @@ class MapController extends ActionController
      */
     public function getMarkersAction(int $contentIdentifier): string
     {
-        $markers = $this->markers->getMarkers($contentIdentifier);
-        return json_encode(['markers' => $markers]);
+        $markerContainer = $this->markers->getMarkers($contentIdentifier);
+        return $markerContainer->getJson();
     }
 }

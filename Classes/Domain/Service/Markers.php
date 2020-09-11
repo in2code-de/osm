@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace In2code\Osm\Domain\Service;
 
+use In2code\Osm\Domain\Model\MarkerContainer;
 use In2code\Osm\Exception\ConfigurationMissingException;
 use In2code\Osm\Exception\RequestFailedException;
 use In2code\Osm\Utility\ArrayUtility;
@@ -17,11 +18,11 @@ class Markers
 {
     /**
      * @param int $contentIdentifier
-     * @return array
+     * @return MarkerContainer
      * @throws RequestFailedException
      * @throws ConfigurationMissingException
      */
-    public function getMarkers(int $contentIdentifier): array
+    public function getMarkers(int $contentIdentifier): MarkerContainer
     {
         $configuration = $this->getFlexFormFromContentElement($contentIdentifier);
         if ($this->isPlugin1($contentIdentifier)) {
@@ -31,7 +32,9 @@ class Markers
         }
         $markers = $this->convertAddressesToGeoCoordinates($markers);
         $markers = ArrayUtility::htmlSpecialCharsOnArray($markers);
-        return $markers;
+        /** @var MarkerContainer $markerContainer */
+        $markerContainer = GeneralUtility::makeInstance(MarkerContainer::class, $markers);
+        return $markerContainer;
     }
 
     /**
