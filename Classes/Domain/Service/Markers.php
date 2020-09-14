@@ -75,7 +75,13 @@ class Markers
         }
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable('tt_address');
         return (array)$queryBuilder
-            ->select('name as markertitle', 'description as markerdescription', 'latitude', 'longitude')
+            ->select(
+                'uid as tt_address_uid',
+                'name as markertitle',
+                'description as markerdescription',
+                'latitude',
+                'longitude'
+            )
             ->from('tt_address')
             ->where('uid in (' . $list . ')')
             ->execute()

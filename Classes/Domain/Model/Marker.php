@@ -8,6 +8,13 @@ namespace In2code\Osm\Domain\Model;
 class Marker
 {
     /**
+     * tt_address.uid if this marker is created from such a record
+     *
+     * @var int
+     */
+    protected $addressIdentifier = 0;
+
+    /**
      * @var string
      */
     protected $title = '';
@@ -51,6 +58,24 @@ class Marker
      * @var int|null
      */
     protected $iconOffsetY = null;
+
+    /**
+     * @return int
+     */
+    public function getAddressIdentifier(): int
+    {
+        return $this->addressIdentifier;
+    }
+
+    /**
+     * @param int $addressIdentifier
+     * @return Marker
+     */
+    public function setAddressIdentifier(int $addressIdentifier): self
+    {
+        $this->addressIdentifier = $addressIdentifier;
+        return $this;
+    }
 
     /**
      * @return string
@@ -225,6 +250,9 @@ class Marker
             'latitude' => $this->getLatitude(),
             'longitude' => $this->getLongitude()
         ];
+        if ($this->getAddressIdentifier() > 0) {
+            $properties['addressIdentifier'] = $this->getAddressIdentifier();
+        }
         if ($this->getIcon() !== '') {
             $properties['icon'] = $this->getIcon();
         }
