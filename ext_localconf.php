@@ -13,7 +13,7 @@ call_user_func(
             'In2code.osm',
             'Pi1',
             [
-                'Map' => 'singleAddress'
+                'Map' => 'plugin1'
             ]
         );
         if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('tt_address')) {
@@ -21,7 +21,7 @@ call_user_func(
                 'In2code.osm',
                 'Pi2',
                 [
-                    'Map' => 'multipleAddresses'
+                    'Map' => 'plugin2'
                 ]
             );
         }

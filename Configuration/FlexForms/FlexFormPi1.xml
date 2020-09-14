@@ -10,66 +10,84 @@
                 </TCEforms>
                 <type>array</type>
                 <el>
-                    <settings.mode>
-                        <TCEforms>
-                            <exclude>1</exclude>
-                            <onChange>reload</onChange>
-                            <label>LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.mode</label>
+                    <settings.addresses type="array">
+                        <title>LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.addresses</title>
+                        <type>array</type>
+                        <section>1</section>
+                        <el>
                             <config>
-                                <type>select</type>
-                                <renderType>selectSingle</renderType>
-                                <items type="array">
-                                    <numIndex index="0" type="array">
-                                        <numIndex index="0">LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.mode.0</numIndex>
-                                        <numIndex index="1">0</numIndex>
-                                    </numIndex>
-                                    <numIndex index="1" type="array">
-                                        <numIndex index="0">LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.mode.1</numIndex>
-                                        <numIndex index="1">1</numIndex>
-                                    </numIndex>
-                                </items>
-                                <size>1</size>
-                                <minitems>1</minitems>
-                                <maxitems>1</maxitems>
+                                <type>array</type>
+                                <title>LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.addresses</title>
+                                <el>
+                                    <address>
+                                        <TCEforms>
+                                            <exclude>1</exclude>
+                                            <label>LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.address</label>
+                                            <config>
+                                                <type>input</type>
+                                                <placeholder>Geschwister-Scholl-Platz, 72074 Tübingen, Deutschland</placeholder>
+                                                <eval>trim</eval>
+                                            </config>
+                                        </TCEforms>
+                                    </address>
+                                    <latitude>
+                                        <TCEforms>
+                                            <exclude>1</exclude>
+                                            <label>LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.latitude</label>
+                                            <config>
+                                                <type>input</type>
+                                                <placeholder>48.52441205</placeholder>
+                                                <eval>trim</eval>
+                                            </config>
+                                        </TCEforms>
+                                    </latitude>
+                                    <longitude>
+                                        <TCEforms>
+                                            <exclude>1</exclude>
+                                            <label>LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.longitude</label>
+                                            <config>
+                                                <type>input</type>
+                                                <placeholder>9.05972173</placeholder>
+                                                <eval>trim</eval>
+                                            </config>
+                                        </TCEforms>
+                                    </longitude>
+                                    <marker>
+                                        <TCEforms>
+                                            <exclude>1</exclude>
+                                            <label>LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.marker</label>
+                                            <config>
+                                                <type>check</type>
+                                                <default>0</default>
+                                            </config>
+                                        </TCEforms>
+                                    </marker>
+                                    <markertitle>
+                                        <TCEforms>
+                                            <exclude>1</exclude>
+                                            <label>LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.markertitle</label>
+                                            <config>
+                                                <type>input</type>
+                                                <placeholder>Universität Tübingen</placeholder>
+                                                <eval>trim</eval>
+                                            </config>
+                                        </TCEforms>
+                                    </markertitle>
+                                    <markerdescription>
+                                        <TCEforms>
+                                            <exclude>1</exclude>
+                                            <label>LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.markerdescription</label>
+                                            <config>
+                                                <type>text</type>
+                                                <placeholder>1477 gegründete Bildungseinrichtung mit 7 Fakultäten, ca. 28.500 Studenten und 17 Krankenhäusern</placeholder>
+                                                <eval>trim</eval>
+                                            </config>
+                                        </TCEforms>
+                                    </markerdescription>
+                                </el>
                             </config>
-                        </TCEforms>
-                    </settings.mode>
-                    <settings.address>
-                        <TCEforms>
-                            <exclude>1</exclude>
-                            <displayCond>FIELD:settings.mode:!=:1</displayCond>
-                            <label>LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.address</label>
-                            <config>
-                                <type>input</type>
-                                <placeholder>Geschwister-Scholl-Platz, 72074 Tübingen, Deutschland</placeholder>
-                                <eval>trim</eval>
-                            </config>
-                        </TCEforms>
-                    </settings.address>
-                    <settings.latitude>
-                        <TCEforms>
-                            <exclude>1</exclude>
-                            <displayCond>FIELD:settings.mode:=:1</displayCond>
-                            <label>LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.latitude</label>
-                            <config>
-                                <type>input</type>
-                                <placeholder>48.52441205</placeholder>
-                                <eval>trim</eval>
-                            </config>
-                        </TCEforms>
-                    </settings.latitude>
-                    <settings.longitude>
-                        <TCEforms>
-                            <exclude>1</exclude>
-                            <displayCond>FIELD:settings.mode:=:1</displayCond>
-                            <label>LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.longitude</label>
-                            <config>
-                                <type>input</type>
-                                <placeholder>9.0597217326993</placeholder>
-                                <eval>trim</eval>
-                            </config>
-                        </TCEforms>
-                    </settings.longitude>
+                        </el>
+                    </settings.addresses>
                     <settings.zoom>
                         <TCEforms>
                             <exclude>1</exclude>
@@ -93,50 +111,5 @@
                 </el>
             </ROOT>
         </main>
-        <marker>
-            <ROOT>
-                <TCEforms>
-                    <sheetTitle>Marker</sheetTitle>
-                </TCEforms>
-                <type>array</type>
-                <el>
-                    <settings.marker>
-                        <TCEforms>
-                            <exclude>1</exclude>
-                            <onChange>reload</onChange>
-                            <label>LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.marker</label>
-                            <config>
-                                <type>check</type>
-                                <default>0</default>
-                            </config>
-                        </TCEforms>
-                    </settings.marker>
-                    <settings.markertitle>
-                        <TCEforms>
-                            <exclude>1</exclude>
-                            <displayCond>FIELD:settings.marker:=:1</displayCond>
-                            <label>LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.markertitle</label>
-                            <config>
-                                <type>input</type>
-                                <placeholder>Universität Tübingen</placeholder>
-                                <eval>trim</eval>
-                            </config>
-                        </TCEforms>
-                    </settings.markertitle>
-                    <settings.markerdescription>
-                        <TCEforms>
-                            <exclude>1</exclude>
-                            <displayCond>FIELD:settings.marker:=:1</displayCond>
-                            <label>LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.markerdescription</label>
-                            <config>
-                                <type>text</type>
-                                <placeholder>1477 gegründete Bildungseinrichtung mit 7 Fakultäten, ca. 28.500 Studenten und 17 Krankenhäusern</placeholder>
-                                <eval>trim</eval>
-                            </config>
-                        </TCEforms>
-                    </settings.markerdescription>
-                </el>
-            </ROOT>
-        </marker>
     </sheets>
 </T3DataStructure>

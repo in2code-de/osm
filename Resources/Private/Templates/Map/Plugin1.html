@@ -2,7 +2,7 @@
 
 
 <f:section name="main">
-    <f:if condition="{latitude} && {longitude}">
+    <f:if condition="{settings.addresses -> f:count()} > 0">
         <f:then>
             <f:render section="map" arguments="{_all}"/>
         </f:then>
@@ -20,11 +20,6 @@
     <div
         class="osm-map"
         data-osm="map"
-        data-osm-default-latitude="{latitude}"
-        data-osm-default-longitude="{longitude}"
-        data-osm-marker="{settings.marker}"
-        data-osm-marker-description="{settings.markerdescription}"
-        data-osm-marker-title="{settings.markertitle}"
         data-osm-markerurl="{f:uri.page(additionalParams: '{type:1597149189,tx_osm_pi1:\'{contentIdentifier:data.uid}\'}')}"
         data-osm-markergraphics="{f:uri.resource(path: 'Icons/Marker.png')}"
         data-osm-zoom="{settings.zoom}"></div>

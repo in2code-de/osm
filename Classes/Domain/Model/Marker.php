@@ -15,6 +15,13 @@ class Marker
     protected $addressIdentifier = 0;
 
     /**
+     * Should a marker be displayed?
+     *
+     * @var int
+     */
+    protected $marker = 0;
+
+    /**
      * @var string
      */
     protected $title = '';
@@ -74,6 +81,24 @@ class Marker
     public function setAddressIdentifier(int $addressIdentifier): self
     {
         $this->addressIdentifier = $addressIdentifier;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMarker(): int
+    {
+        return $this->marker;
+    }
+
+    /**
+     * @param int $marker
+     * @return Marker
+     */
+    public function setMarker(int $marker): self
+    {
+        $this->marker = $marker;
         return $this;
     }
 
@@ -245,6 +270,7 @@ class Marker
     public function getProperties(): array
     {
         $properties = [
+            'marker' => $this->getMarker(),
             'markertitle' => $this->getTitle(),
             'markerdescription' => $this->getDescription(),
             'latitude' => $this->getLatitude(),

@@ -45,7 +45,6 @@ class Markers
         } else {
             $markers = $this->getMarkersFromAddresses($configuration);
         }
-        $markers = $this->convertAddressesToGeoCoordinates($markers);
         $markers = ArrayUtility::htmlSpecialCharsOnArray($markers);
         /** @var MarkerContainer $markerContainer */
         $markerContainer = GeneralUtility::makeInstance(MarkerContainer::class, $markers, $configuration);
@@ -56,13 +55,33 @@ class Markers
     /**
      * @param array $configuration
      * @return array
+     * @throws RequestFailedException
      */
     protected function buildFromPi1(array $configuration): array
     {
-        return [$configuration['settings']];
+        $addresses = [];
+        foreach ($configuration['settings']['addresses'] as $addressConfiguration) {
+            $address = $addressConfiguration['config'];
+            if ($address['address'] !== '' || ($address['latitude'] !== '' && $address['longitude'] !== '')) {
+                $addresses[] = $address;
+            }
+        }
+        $addresses = $this->convertAddressesToGeoCoordinates($addresses);
+        return $addresses;
     }
 
     /**
+     * Example return value:
+     *  [
+     *      [
+     *          'tt_address_uid' => 123,
+     *          'marker' => 1,
+     *          'markertitle' => 'Title',
+     *          'markerdescription' => 'Description text'
+     *          'latitude' => 12.1234567,
+     *          'longitude' => 12.1234567
+     *      ]
+     *  ]
      * @param array $configuration
      * @return array
      * @throws ConfigurationMissingException
@@ -74,7 +93,7 @@ class Markers
             throw new ConfigurationMissingException('No addresses configured', 1597233868);
         }
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable('tt_address');
-        return (array)$queryBuilder
+        $records = (array)$queryBuilder
             ->select(
                 'uid as tt_address_uid',
                 'name as markertitle',
@@ -86,6 +105,12 @@ class Markers
             ->where('uid in (' . $list . ')')
             ->execute()
             ->fetchAll();
+        foreach ($records as &$record) {
+            if (!empty($record['markertitle']) && !empty($record['markerdescription'])) {
+                $record['marker'] = 1;
+            }
+        }
+        return $records;
     }
 
     /**

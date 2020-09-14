@@ -33,6 +33,7 @@ class MarkerContainer
             /** @var Marker $marker */
             $marker = GeneralUtility::makeInstance(Marker::class);
             $marker
+                ->setMarker((int)$markerProperties['marker'])
                 ->setTitle($markerProperties['markertitle'])
                 ->setDescription($markerProperties['markerdescription'])
                 ->setLatitude($markerProperties['latitude'])

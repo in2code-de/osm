@@ -16,14 +16,14 @@ function Osm() {
    *
    * @type {number}
    */
-  var latitude = 0.0;
+  var latitude = 48.52441205;
 
   /**
    * Initial map center position
    *
    * @type {number}
    */
-  var longitude = 0.0;
+  var longitude = 9.05972173;
 
   /**
    * Initial map zoom factor
@@ -40,18 +40,13 @@ function Osm() {
   var markerurl = '';
 
   /**
-   * Add marker?
-   *
-   * @type {boolean}
-   */
-  var marker = false;
-
-  /**
    * @type {*[]}
    */
   var markers = [];
 
   /**
+   * Default marker icon graphic path and filename
+   *
    * @type {string}
    */
   var markerGraphics = '';
@@ -60,10 +55,7 @@ function Osm() {
    * @param container
    */
   this.initializeMap = function(container) {
-    latitude = parseFloat(container.getAttribute('data-osm-default-latitude'));
-    longitude = parseFloat(container.getAttribute('data-osm-default-longitude'));
     zoom = parseInt(container.getAttribute('data-osm-zoom'));
-    marker = container.getAttribute('data-osm-marker') === '1';
     markerurl = container.getAttribute('data-osm-markerurl');
     markerGraphics = container.getAttribute('data-osm-markergraphics');
     getMarkersFromAjaxAndCreateMap(container);
@@ -96,10 +88,10 @@ function Osm() {
    */
   var setDefaultLatitudeAndLongitude = function(markers) {
     var standard = getAverageGeolocation(markers);
-    if (standard.latitude !== 0 && latitude !== 0.0) {
+    if (standard.latitude !== 0) {
       latitude = standard.latitude;
     }
-    if (standard.longitude !== 0 && longitude !== 0.0) {
+    if (standard.longitude !== 0) {
       longitude = standard.longitude;
     }
   };
@@ -132,9 +124,7 @@ function Osm() {
     );
     map.addLayer(mapnik);
 
-    if (marker === true) {
-      addMarkers();
-    }
+    addMarkers();
 
     map.setCenter(position, zoom);
   };
@@ -148,6 +138,9 @@ function Osm() {
 
     for (var i = 0; i < markers.length; i++) {
       var marker = markers[i];
+      if (marker.marker === 0) {
+        continue;
+      }
       var label = null;
       if (marker.markertitle || marker.markerdescription) {
         label = '<h5>' + marker.markertitle + '</h5>' + marker.markerdescription;

@@ -5,29 +5,32 @@
         <f:image src="EXT:osm/Resources/Public/Icons/Extension.svg" width="30" alt="OSM Extension" />
         <f:translate key="LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.title">OSM</f:translate>
     </h3>
-    <f:if condition="{flexForm.settings.mode} == 0">
+    <f:if condition="{flexForm.settings.addresses -> f:count()} > 0">
         <f:then>
-            <f:if condition="{flexForm.settings.address}">
-                <f:then>
-                    <p>{flexForm.settings.address}</p>
-                </f:then>
-                <f:else>
-                    <f:render section="failure" arguments="{_all}"/>
-                </f:else>
-            </f:if>
+            <ul class="list-group">
+                <f:for each="{flexForm.settings.addresses}" as="address" iteration="iteration">
+                    <f:if condition="{address.config.address}">
+                        <f:then>
+                            <li class="list-group-item">{address.config.address}</li>
+                        </f:then>
+                        <f:else>
+                            <f:if condition="{address.config.latitude} && {address.config.longitude}">
+                                <f:then>
+                                    <li class="list-group-item">
+                                        {address.config.latitude}, {address.config.longitude}
+                                    </li>
+                                </f:then>
+                                <f:else>
+                                    <li class="list-group-item"><f:render section="failure" arguments="{_all}"/></li>
+                                </f:else>
+                            </f:if>
+                        </f:else>
+                    </f:if>
+                </f:for>
+            </ul>
         </f:then>
         <f:else>
-            <f:if condition="{flexForm.settings.latitude} && {flexForm.settings.longitude}">
-                <f:then>
-                    <p>
-                        {flexForm.settings.latitude}<br />
-                        {flexForm.settings.longitude}
-                    </p>
-                </f:then>
-                <f:else>
-                    <f:render section="failure" arguments="{_all}"/>
-                </f:else>
-            </f:if>
+            <f:render section="failure" arguments="{_all}"/>
         </f:else>
     </f:if>
 </osm:backend.editLink>

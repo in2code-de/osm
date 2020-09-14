@@ -9,14 +9,14 @@ if (!defined('TYPO3_MODE')) {
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
     'osm',
     'Pi1',
-    'OSM: Single Address',
+    'OSM: Individual Addresses',
     'extension-osm-icon'
 );
 if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('tt_address')) {
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
         'osm',
         'Pi2',
-        'OSM: Multiple Addresses',
+        'OSM: Addresses from pool',
         'extension-osm-icon'
     );
 }

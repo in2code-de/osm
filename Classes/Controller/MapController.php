@@ -35,27 +35,19 @@ class MapController extends ActionController
     }
 
     /**
-     * Show a map with a single marker in Pi1 or just show the map without marker
-     *
      * @return void
-     * @throws RequestFailedException
      */
-    public function singleAddressAction(): void
+    public function plugin1Action(): void
     {
-        $coordinates = $this->geoConverter->getCoordinatesFromSettings($this->settings);
         $this->view->assignMultiple([
-            'latitude' => $coordinates[0],
-            'longitude' => $coordinates[1],
             'data' => $this->configurationManager->getContentObject()->data
         ]);
     }
 
     /**
-     * Show a map with more markers in Pi2
-     *
      * @return void
      */
-    public function multipleAddressesAction(): void
+    public function plugin2Action(): void
     {
         $this->view->assignMultiple([
             'data' => $this->configurationManager->getContentObject()->data

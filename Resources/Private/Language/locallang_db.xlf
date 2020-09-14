@@ -4,47 +4,41 @@
 		<header/>
 		<body>
 			<trans-unit id="pi1.title">
-				<source>OpenStreetMap Single Address</source>
+				<source>OpenStreetMap Individual Addresses</source>
 			</trans-unit>
 			<trans-unit id="pi1.description">
-				<source>Show a single address on a map</source>
+				<source>Show one or more individual addresses on a map</source>
 			</trans-unit>
-			<trans-unit id="pi1.settings.mode">
-				<source>Address or geo coordinates</source>
-			</trans-unit>
-			<trans-unit id="pi1.settings.mode.0">
-				<source>Enter an address</source>
-			</trans-unit>
-			<trans-unit id="pi1.settings.mode.1">
-				<source>Enter geo coordinates</source>
+			<trans-unit id="pi1.settings.addresses">
+				<source>Add address</source>
 			</trans-unit>
 			<trans-unit id="pi1.settings.address">
 				<source>Full address</source>
 			</trans-unit>
 			<trans-unit id="pi1.settings.latitude">
-				<source>Latitude</source>
+				<source>Latitude (alternative to full address)</source>
 			</trans-unit>
 			<trans-unit id="pi1.settings.longitude">
-				<source>Longitude</source>
+				<source>Longitude (alternative to full address)</source>
 			</trans-unit>
 			<trans-unit id="pi1.settings.zoom">
 				<source>Zoom factor</source>
 			</trans-unit>
 			<trans-unit id="pi1.settings.marker">
-				<source>Show a marker</source>
+				<source>Show this marker</source>
 			</trans-unit>
 			<trans-unit id="pi1.settings.markertitle">
-				<source>Title for marker</source>
+				<source>Title for marker (empty = no popup)</source>
 			</trans-unit>
 			<trans-unit id="pi1.settings.markerdescription">
-				<source>Description for marker</source>
+				<source>Description for marker (empty = no popup)</source>
 			</trans-unit>
 
 			<trans-unit id="pi2.title">
-				<source>OpenStreetMap Multiple Addresses</source>
+				<source>OpenStreetMap address from pool</source>
 			</trans-unit>
 			<trans-unit id="pi2.description">
-				<source>Show more then only one address on a map</source>
+				<source>Show addresses from tt_address</source>
 			</trans-unit>
 			<trans-unit id="pi2.addresses">
 				<source>Select addresses</source>

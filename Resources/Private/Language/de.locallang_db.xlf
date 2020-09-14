@@ -4,61 +4,53 @@
 		<header/>
 		<body>
 			<trans-unit id="pi1.title">
-				<source>OpenStreetMap Single Address</source>
-				<target state="translated">OpenStreetMap Einzeladresse</target>
+				<source>OpenStreetMap Individual Addresses</source>
+				<target state="translated">OpenStreetMap individuelle Adressen</target>
 			</trans-unit>
 			<trans-unit id="pi1.description">
-				<source>Show a single address on a map</source>
-				<target state="translated">Zeige eine einzelne Adresse auf einer Karte</target>
+				<source>Show one or more individual addresses on a map</source>
+				<target state="translated">Zeige eine oder mehrere Adressen auf einer Karte</target>
 			</trans-unit>
-			<trans-unit id="pi1.settings.mode">
-				<source>Address or geo coordinates</source>
-				<target state="translated">Adresse oder Geo-Koordinaten</target>
-			</trans-unit>
-			<trans-unit id="pi1.settings.mode.0">
-				<source>Enter an address</source>
-				<target state="translated">Adresse eintragen</target>
-			</trans-unit>
-			<trans-unit id="pi1.settings.mode.1">
-				<source>Enter geo coordinates</source>
-				<target state="translated">Geo-Koordinaten eintragen</target>
+			<trans-unit id="pi1.settings.addresses">
+				<source>Add address</source>
+				<target state="translated">Adresse hinzufügen</target>
 			</trans-unit>
 			<trans-unit id="pi1.settings.address">
 				<source>Full address</source>
 				<target state="translated">Volle Adresse</target>
 			</trans-unit>
 			<trans-unit id="pi1.settings.latitude">
-				<source>Latitude</source>
-				<target state="translated">Längengrad</target>
+				<source>Latitude (alternative to full address)</source>
+				<target state="translated">Längengrad (alternativ zur vollen Adresse)</target>
 			</trans-unit>
 			<trans-unit id="pi1.settings.longitude">
-				<source>Longitude</source>
-				<target state="translated">Breitengrad</target>
+				<source>Longitude (alternative to full address)</source>
+				<target state="translated">Breitengrad (alternativ zur vollen Adresse)</target>
 			</trans-unit>
 			<trans-unit id="pi1.settings.zoom">
 				<source>Zoom factor</source>
 				<target state="translated">Zoom Faktor</target>
 			</trans-unit>
 			<trans-unit id="pi1.settings.marker">
-				<source>Show a marker</source>
-				<target state="translated">Zeige eine Markierung</target>
+				<source>Show this marker</source>
+				<target state="translated">Zeige diesen Marker</target>
 			</trans-unit>
 			<trans-unit id="pi1.settings.markertitle">
-				<source>Title for marker</source>
-				<target state="translated">Überschrift Marker</target>
+				<source>Title for marker (empty = no popup)</source>
+				<target state="translated">Überschrift Marker (leer = kein Popup)</target>
 			</trans-unit>
 			<trans-unit id="pi1.settings.markerdescription">
-				<source>Description for marker</source>
-				<target state="translated">Beschreibung Marker</target>
+				<source>Description for marker (empty = no popup)</source>
+				<target state="translated">Beschreibung Marker (leer = kein Popup)</target>
 			</trans-unit>
 
 			<trans-unit id="pi2.title">
-				<source>OpenStreetMap Multiple Addresses</source>
-				<target state="translated">OpenStreetMap multiple Adressen</target>
+				<source>OpenStreetMap address from pool</source>
+				<target state="translated">OpenStreetMap zeige Adressen aus Adresspool</target>
 			</trans-unit>
 			<trans-unit id="pi2.description">
-				<source>Show more then only one address on a map</source>
-				<target state="translated">Zeige mehr als nur eine Adresse auf einer Karte</target>
+				<source>Show addresses from tt_address</source>
+				<target state="translated">Zeige Adressen aus tt_address</target>
 			</trans-unit>
 			<trans-unit id="pi2.settings.addresses">
 				<source>Select addresses</source>
