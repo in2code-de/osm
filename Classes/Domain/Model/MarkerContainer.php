@@ -36,8 +36,8 @@ class MarkerContainer
                 ->setMarker((int)$markerProperties['marker'])
                 ->setTitle($markerProperties['markertitle'])
                 ->setDescription($markerProperties['markerdescription'])
-                ->setLatitude($markerProperties['latitude'])
-                ->setLongitude($markerProperties['longitude']);
+                ->setLatitude((float)$markerProperties['latitude'])
+                ->setLongitude((float)$markerProperties['longitude']);
             if (!empty($markerProperties['tt_address_uid'])) {
                 $marker->setAddressIdentifier((int)$markerProperties['tt_address_uid']);
             }
