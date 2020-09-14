@@ -9,14 +9,14 @@ if (!defined('TYPO3_MODE')) {
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
     'osm',
     'Pi1',
-    'OSM: Individual Addresses',
+    'LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.title',
     'extension-osm-icon'
 );
 if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('tt_address')) {
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
         'osm',
         'Pi2',
-        'OSM: Addresses from pool',
+        'LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi2.title',
         'extension-osm-icon'
     );
 }

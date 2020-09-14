@@ -46,7 +46,7 @@
 
 			<trans-unit id="pi2.title">
 				<source>OpenStreetMap address from pool</source>
-				<target state="translated">OpenStreetMap zeige Adressen aus Adresspool</target>
+				<target state="translated">OpenStreetMap Adressen aus Adresspool</target>
 			</trans-unit>
 			<trans-unit id="pi2.description">
 				<source>Show addresses from tt_address</source>
