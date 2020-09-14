@@ -15,11 +15,20 @@ class MarkerContainer
     protected $markers = [];
 
     /**
+     * Configuration from FlexForm
+     *
+     * @var array
+     */
+    protected $configuration = [];
+
+    /**
      * MarkerContainer constructor.
      * @param array $markers
+     * @param array $configuration
      */
-    public function __construct(array $markers = [])
+    public function __construct(array $markers, array $configuration)
     {
+        $this->configuration = $configuration;
         foreach ($markers as $markerProperties) {
             /** @var Marker $marker */
             $marker = GeneralUtility::makeInstance(Marker::class);
@@ -69,6 +78,24 @@ class MarkerContainer
     public function addMarker(Marker $marker): self
     {
         $this->markers[] = $marker;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getConfiguration(): array
+    {
+        return $this->configuration;
+    }
+
+    /**
+     * @param array $configuration
+     * @return MarkerContainer
+     */
+    public function setConfiguration(array $configuration): self
+    {
+        $this->configuration = $configuration;
         return $this;
     }
 

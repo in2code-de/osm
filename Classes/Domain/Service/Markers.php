@@ -48,7 +48,7 @@ class Markers
         $markers = $this->convertAddressesToGeoCoordinates($markers);
         $markers = ArrayUtility::htmlSpecialCharsOnArray($markers);
         /** @var MarkerContainer $markerContainer */
-        $markerContainer = GeneralUtility::makeInstance(MarkerContainer::class, $markers);
+        $markerContainer = GeneralUtility::makeInstance(MarkerContainer::class, $markers, $configuration);
         $this->evenDispatcher->dispatch($markerContainer);
         return $markerContainer;
     }
