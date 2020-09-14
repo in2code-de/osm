@@ -152,6 +152,25 @@ function Osm() {
       if (marker.markertitle || marker.markerdescription) {
         label = '<h5>' + marker.markertitle + '</h5>' + marker.markerdescription;
       }
+      var iconWidth = 23;
+      var iconHeight = 38;
+      var iconOffsetX = -15;
+      var iconOffsetY = -36;
+      if (marker.icon) {
+        markerGraphics = marker.icon;
+      }
+      if (marker.iconWidth) {
+        iconWidth = marker.iconWidth;
+      }
+      if (marker.iconHeight) {
+        iconHeight = marker.iconHeight;
+      }
+      if (marker.iconOffsetX) {
+        iconOffsetX = marker.iconOffsetX;
+      }
+      if (marker.iconOffsetY) {
+        iconOffsetY = marker.iconOffsetY;
+      }
 
       var feature = new OpenLayers.Feature.Vector(
         new OpenLayers.Geometry.Point(marker.longitude, marker.latitude).transform(
@@ -163,10 +182,10 @@ function Osm() {
         },
         {
           externalGraphic: markerGraphics,
-          graphicHeight: 38,
-          graphicWidth: 23,
-          graphicXOffset: -15,
-          graphicYOffset: -36
+          graphicWidth: iconWidth,
+          graphicHeight: iconHeight,
+          graphicXOffset: iconOffsetX,
+          graphicYOffset: iconOffsetY
         }
       );
       vectorLayer.addFeatures(feature);

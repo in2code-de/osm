@@ -28,6 +28,31 @@ class Marker
     protected $longitude = 0.0;
 
     /**
+     * @var string
+     */
+    protected $icon = '';
+
+    /**
+     * @var int
+     */
+    protected $iconWidth = 0;
+
+    /**
+     * @var int
+     */
+    protected $iconHeight = 0;
+
+    /**
+     * @var int|null
+     */
+    protected $iconOffsetX = null;
+
+    /**
+     * @var int|null
+     */
+    protected $iconOffsetY = null;
+
+    /**
      * @return string
      */
     public function getTitle(): string
@@ -100,15 +125,121 @@ class Marker
     }
 
     /**
+     * @return string
+     */
+    public function getIcon(): string
+    {
+        return $this->icon;
+    }
+
+    /**
+     * @param string $icon
+     * @return Marker
+     */
+    public function setIcon(string $icon): self
+    {
+        $this->icon = $icon;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIconWidth(): int
+    {
+        return $this->iconWidth;
+    }
+
+    /**
+     * @param int $iconWidth
+     * @return Marker
+     */
+    public function setIconWidth(int $iconWidth): self
+    {
+        $this->iconWidth = $iconWidth;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIconHeight(): int
+    {
+        return $this->iconHeight;
+    }
+
+    /**
+     * @param int $iconHeight
+     * @return Marker
+     */
+    public function setIconHeight(int $iconHeight): self
+    {
+        $this->iconHeight = $iconHeight;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIconOffsetX(): ?int
+    {
+        return $this->iconOffsetX;
+    }
+
+    /**
+     * @param int $iconOffsetX
+     * @return Marker
+     */
+    public function setIconOffsetX(int $iconOffsetX): self
+    {
+        $this->iconOffsetX = $iconOffsetX;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIconOffsetY(): ?int
+    {
+        return $this->iconOffsetY;
+    }
+
+    /**
+     * @param int $iconOffsetY
+     * @return Marker
+     */
+    public function setIconOffsetY(int $iconOffsetY): self
+    {
+        $this->iconOffsetY = $iconOffsetY;
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function getProperties(): array
     {
-        return [
+        $properties = [
             'markertitle' => $this->getTitle(),
             'markerdescription' => $this->getDescription(),
             'latitude' => $this->getLatitude(),
             'longitude' => $this->getLongitude()
         ];
+        if ($this->getIcon() !== '') {
+            $properties['icon'] = $this->getIcon();
+        }
+        if ($this->getIconWidth() > 0) {
+            $properties['iconWidth'] = $this->getIconWidth();
+        }
+        if ($this->getIconHeight() > 0) {
+            $properties['iconHeight'] = $this->getIconHeight();
+        }
+        if ($this->getIconOffsetX() !== null) {
+            $properties['iconOffsetX'] = $this->getIconOffsetX();
+        }
+        if ($this->getIconOffsetY() !== null) {
+            $properties['iconOffsetY'] = $this->getIconOffsetY();
+        }
+        return $properties;
     }
 }
