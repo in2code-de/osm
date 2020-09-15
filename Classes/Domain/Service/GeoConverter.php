@@ -13,23 +13,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class GeoConverter
 {
     /**
-     * @param array $settings
-     * @return array e.g. [48.5294782, 9.0415853]
-     * @throws RequestFailedException
-     */
-    public function getCoordinatesFromSettings(array $settings): array
-    {
-        if ($settings['mode'] === '1') {
-            return [
-                (float)$settings['latitude'],
-                (float)$settings['longitude']
-            ];
-        } else {
-            return $this->convertAddressToCoordinates($settings['address']);
-        }
-    }
-
-    /**
      * @param string $address e.g. "Geschwister-Scholl-Platz, 72074 Tübingen, Deutschland"
      * @return array e.g. [48.5294782, 9.0415853]
      * @throws RequestFailedException

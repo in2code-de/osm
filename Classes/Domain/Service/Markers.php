@@ -61,9 +61,11 @@ class Markers
     {
         $addresses = [];
         foreach ($configuration['settings']['addresses'] as $addressConfiguration) {
-            $address = $addressConfiguration['config'];
-            if ($address['address'] !== '' || ($address['latitude'] !== '' && $address['longitude'] !== '')) {
-                $addresses[] = $address;
+            if ($addressConfiguration !== []) {
+                $address = $addressConfiguration['config'];
+                if ($address['address'] !== '' || ($address['latitude'] !== '' && $address['longitude'] !== '')) {
+                    $addresses[] = $address;
+                }
             }
         }
         $addresses = $this->convertAddressesToGeoCoordinates($addresses);
@@ -106,7 +108,7 @@ class Markers
             ->execute()
             ->fetchAll();
         foreach ($records as &$record) {
-            if (!empty($record['markertitle']) && !empty($record['markerdescription'])) {
+            if (!empty($record['markertitle'])) {
                 $record['marker'] = 1;
             }
         }
@@ -121,15 +123,12 @@ class Markers
     protected function convertAddressesToGeoCoordinates(array $markers): array
     {
         foreach ($markers as &$marker) {
-            if (empty($marker['latitude']) && empty($marker['longitude'])) {
+            if (empty($marker['latitude']) && empty($marker['longitude']) && !empty($marker['address'])) {
                 /** @var GeoConverter $geoConverter */
                 $geoConverter = GeneralUtility::makeInstance(GeoConverter::class);
                 $coordinates = $geoConverter->convertAddressToCoordinates($marker['address']);
                 $marker['latitude'] = $coordinates[0];
                 $marker['longitude'] = $coordinates[1];
-            } else {
-                $marker['latitude'] = (float)$marker['latitude'];
-                $marker['longitude'] = (float)$marker['longitude'];
             }
         }
         return $markers;
