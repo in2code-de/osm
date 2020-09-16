@@ -1,39 +1,41 @@
 {namespace osm=In2code\Osm\ViewHelpers}
-<osm:backend.editLink identifier="{data.uid}">
-    <f:if condition="{data.header}"><h2 style="margin-top: 12px;">{data.header}</h2></f:if>
-    <h3>
-        <f:image src="EXT:osm/Resources/Public/Icons/Extension.svg" width="30" alt="OSM Extension" />
-        <f:translate key="LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.title">OSM</f:translate>
-    </h3>
-    <f:if condition="{flexForm.settings.addresses -> f:count()} > 0">
-        <f:then>
-            <ul class="list-group">
-                <f:for each="{flexForm.settings.addresses}" as="address" iteration="iteration">
-                    <f:if condition="{address.config.address}">
-                        <f:then>
-                            <li class="list-group-item">{address.config.address}</li>
-                        </f:then>
-                        <f:else>
-                            <f:if condition="{address.config.latitude} && {address.config.longitude}">
-                                <f:then>
-                                    <li class="list-group-item">
-                                        {address.config.latitude}, {address.config.longitude}
-                                    </li>
-                                </f:then>
-                                <f:else>
-                                    <li class="list-group-item"><f:render section="failure" arguments="{_all}"/></li>
-                                </f:else>
-                            </f:if>
-                        </f:else>
-                    </f:if>
-                </f:for>
-            </ul>
-        </f:then>
-        <f:else>
-            <f:render section="failure" arguments="{_all}"/>
-        </f:else>
-    </f:if>
-</osm:backend.editLink>
+<osm:exception.catch>
+    <osm:backend.editLink identifier="{data.uid}">
+        <f:if condition="{data.header}"><h2 style="margin-top: 12px;">{data.header}</h2></f:if>
+        <h3>
+            <f:image src="EXT:osm/Resources/Public/Icons/Extension.svg" width="30" alt="OSM Extension" />
+            <f:translate key="LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.title">OSM</f:translate>
+        </h3>
+        <f:if condition="{flexForm.settings.addresses -> f:count()} > 0">
+            <f:then>
+                <ul class="list-group">
+                    <f:for each="{flexForm.settings.addresses}" as="address" iteration="iteration">
+                        <f:if condition="{address.config.address}">
+                            <f:then>
+                                <li class="list-group-item">{address.config.address}</li>
+                            </f:then>
+                            <f:else>
+                                <f:if condition="{address.config.latitude} && {address.config.longitude}">
+                                    <f:then>
+                                        <li class="list-group-item">
+                                            {address.config.latitude}, {address.config.longitude}
+                                        </li>
+                                    </f:then>
+                                    <f:else>
+                                        <li class="list-group-item"><f:render section="failure" arguments="{_all}"/></li>
+                                    </f:else>
+                                </f:if>
+                            </f:else>
+                        </f:if>
+                    </f:for>
+                </ul>
+            </f:then>
+            <f:else>
+                <f:render section="failure" arguments="{_all}"/>
+            </f:else>
+        </f:if>
+    </osm:backend.editLink>
+</osm:exception.catch>
 
 
 <f:section name="failure">
