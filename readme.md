@@ -3,12 +3,13 @@
 ## Introduction
 
 A small but modern OpenStreetMap extension for TYPO3 (10 and newer). You can simply show a map with or without markers.
-If you want to show a marker, just add an address in FlexForm or geo coordinates.
+One or more addresses can be added as human readable address or with geo coordinates.
 
-A second plugin allows you to show multiple markers from tt_address records (when tt_address.latitude and .longitude is
+A second plugin allows you to show addresses from tt_address records (when tt_address.latitude and .longitude is
 filled).
 
-No jQuery, just vanilla JS. Modern asset collector used for includes of JS or CSS.
+No jQuery, just vanilla JS. Modern asset collector used for includes of JS or CSS. PSR-14 eventdispatcher can be used
+to manipulate markers and labels.
 
 ## Plugin 1
 
@@ -86,10 +87,64 @@ tx_osm {
 }
 ```
 
+### Manipulate markers
+
+You can manipulate markers via PSR-14 Eventdispatcher as described.
+
+Configuration/Services.yaml in your sitepackage:
+
+```
+services:
+  Vendor\YourSitepackage\EventListener\OsmManipulator:
+    tags:
+      - name: event.listener
+        identifier: 'osm-marker-manipulation'
+        event: In2code\Osm\Domain\Model\MarkerContainer
+```
+
+Example dispatcher:
+
+```
+<?php
+declare(strict_types=1);
+namespace Vendor\YourSitepackage\EventListener;
+
+use In2code\Osm\Domain\Model\Marker;
+use In2code\Osm\Domain\Model\MarkerContainer;
+
+/**
+ * Class OsmManipulator as an example
+ */
+class OsmManipulator
+{
+    /**
+     * @param MarkerContainer $markerContainer
+     * @return void
+     */
+    public function __invoke(MarkerContainer $markerContainer): void
+    {
+        /** @var Marker $marker */
+        foreach ($markerContainer->getMarkers() as $marker) {
+            $marker->setMarker(1);
+            $marker->setTitle('new title');
+            $marker->setDescription('new description');
+            $marker->setLatitude(10.00000);
+            $marker->setLongitude(10.00000);
+            $marker->setIcon('/typo3conf/ext/yoursitepackage/Resources/Public/Icons/Marker.png');
+            $marker->setIconHeight(28);
+            $marker->setIconWidth(28);
+            $marker->setIconOffsetX(1);
+            $marker->setIconOffsetY(-10);
+        }
+    }
+}
+```
+
 ## Changelog
 
 | Version    | Date       | State      | Description                                                                                                                                                                                |
 | ---------- | ---------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 2.0.0 (!!!)| 2020-09-18 | Feature    | Allow more then only one address in Pi1 now. Allow to extend extension with PSR-14 eventdispatcher.                                                                                        |
 | 1.2.0      | 2020-08-13 | Bugfix     | Prevent `let` in JavaScript to support old browsers. Adjust marker size.                                                                                                                   |
 | 1.1.0      | 2020-08-13 | Task       | Some small improvements (marker image with outline, some adjustments of the views in backend)                                                                                              |
 | 1.0.0      | 2020-08-12 | Task       | Initial release                                                                                                                                                                            |
