@@ -10,8 +10,17 @@
                 </TCEforms>
                 <type>array</type>
                 <el>
+                    <information>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <config>
+                                <type>user</type>
+                                <renderType>osm_pi1_information</renderType>
+                            </config>
+                        </TCEforms>
+                    </information>
                     <settings.addresses type="array">
-                        <displayCond>USER:In2code\Osm\Tca\IsContentStoredDisplayCondition->match:default</displayCond>
+                        <displayCond>USER:In2code\Osm\Tca\IsContentStoredDisplayCondition->match</displayCond>
                         <title>LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.addresses</title>
                         <type>array</type>
                         <section>1</section>

@@ -15,11 +15,7 @@ class IsContentStoredDisplayCondition
      */
     public function match(array $information): bool
     {
-        $result = $this->isPersisted($information);
-        if (!empty($information['conditionParamters'][0]) && $information['conditionParamters'][0] === 'negate') {
-            $result = !$result;
-        }
-        return $result;
+        return $this->isPersisted($information);
     }
 
     /**

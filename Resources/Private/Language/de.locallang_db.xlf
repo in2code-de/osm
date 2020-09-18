@@ -11,6 +11,10 @@
 				<source>Show one or more individual addresses on a map</source>
 				<target state="translated">Zeige eine oder mehrere Adressen auf einer Karte</target>
 			</trans-unit>
+			<trans-unit id="pi1.information">
+				<source>Please save content first. Afterwards addresses can be added.</source>
+				<target state="translated">Bitte Seiteninhalt zuerst speichern. Anschließend können Adressen hinzugefügt werden.</target>
+			</trans-unit>
 			<trans-unit id="pi1.settings.addresses">
 				<source>Add address</source>
 				<target state="translated">Adresse hinzufügen</target>

@@ -9,6 +9,9 @@
 			<trans-unit id="pi1.description">
 				<source>Show one or more individual addresses on a map</source>
 			</trans-unit>
+			<trans-unit id="pi1.information">
+				<source>Please save content first. Afterwards addresses can be added.</source>
+			</trans-unit>
 			<trans-unit id="pi1.settings.addresses">
 				<source>Add address</source>
 			</trans-unit>

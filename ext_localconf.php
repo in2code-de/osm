@@ -32,5 +32,14 @@ call_user_func(
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
             '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:osm/Configuration/TSConfig/Osm.typoscript">'
         );
+
+        /**
+         * Add user func for TCA fields
+         */
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1600424607] = [
+            'nodeName' => 'osm_pi1_information',
+            'priority' => 50,
+            'class' => \In2code\Osm\Tca\Information::class,
+        ];
     }
 );
