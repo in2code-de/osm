@@ -142,9 +142,10 @@ class OsmManipulator
 
 ## Changelog
 
-| Version    | Date       | State      | Description                                                                                                                                                                                |
-| ---------- | ---------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 2.0.0 (!!!)| 2020-09-18 | Feature    | Allow more then only one address in Pi1 now. Allow to extend extension with PSR-14 eventdispatcher.                                                                                        |
-| 1.2.0      | 2020-08-13 | Bugfix     | Prevent `let` in JavaScript to support old browsers. Adjust marker size.                                                                                                                   |
-| 1.1.0      | 2020-08-13 | Task       | Some small improvements (marker image with outline, some adjustments of the views in backend)                                                                                              |
-| 1.0.0      | 2020-08-12 | Task       | Initial release                                                                                                                                                                            |
+| Version    | Date       | State      | Description                                                                                                |
+| ---------- | ---------- | ---------- | ---------------------------------------------------------------------------------------------------------- |
+| 2.0.1      | 2020-09-21 | Task       | Small label change.                                                                                        |
+| 2.0.0 (!!!)| 2020-09-18 | Feature    | Allow more then only one address in Pi1 now. Allow to extend extension with PSR-14 eventdispatcher.        |
+| 1.2.0      | 2020-08-13 | Bugfix     | Prevent `let` in JavaScript to support old browsers. Adjust marker size.                                   |
+| 1.1.0      | 2020-08-13 | Task       | Some small improvements (marker image with outline, some adjustments of the views in backend)              |
+| 1.0.0      | 2020-08-12 | Task       | Initial release                                                                                            |
