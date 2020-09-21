@@ -31,10 +31,10 @@
 				<source>Show this marker</source>
 			</trans-unit>
 			<trans-unit id="pi1.settings.markertitle">
-				<source>Title for marker (empty = no popup)</source>
+				<source>Title for marker (optional for popup)</source>
 			</trans-unit>
 			<trans-unit id="pi1.settings.markerdescription">
-				<source>Description for marker (empty = no popup)</source>
+				<source>Description for marker (optional for popup)</source>
 			</trans-unit>
 
 			<trans-unit id="pi2.title">

@@ -40,12 +40,12 @@
 				<target state="translated">Zeige diesen Marker</target>
 			</trans-unit>
 			<trans-unit id="pi1.settings.markertitle">
-				<source>Title for marker (empty = no popup)</source>
-				<target state="translated">Überschrift Marker (leer = kein Popup)</target>
+				<source>Title for marker (optional for popup)</source>
+				<target state="translated">Überschrift Marker (optional, für Pop-up)</target>
 			</trans-unit>
 			<trans-unit id="pi1.settings.markerdescription">
-				<source>Description for marker (empty = no popup)</source>
-				<target state="translated">Beschreibung Marker (leer = kein Popup)</target>
+				<source>Description for marker (optional for popup)</source>
+				<target state="translated">Beschreibung Marker (optional, für Pop-up)</target>
 			</trans-unit>
 
 			<trans-unit id="pi2.title">
