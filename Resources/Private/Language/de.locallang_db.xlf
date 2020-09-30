@@ -25,11 +25,11 @@
 			</trans-unit>
 			<trans-unit id="pi1.settings.latitude">
 				<source>Latitude (alternative to full address)</source>
-				<target state="translated">Längengrad (alternativ zur vollen Adresse)</target>
+				<target state="translated">Breitengrad (alternativ zur vollen Adresse)</target>
 			</trans-unit>
 			<trans-unit id="pi1.settings.longitude">
 				<source>Longitude (alternative to full address)</source>
-				<target state="translated">Breitengrad (alternativ zur vollen Adresse)</target>
+				<target state="translated">Längengrad (alternativ zur vollen Adresse)</target>
 			</trans-unit>
 			<trans-unit id="pi1.settings.zoom">
 				<source>Zoom factor</source>
