@@ -144,6 +144,7 @@ class OsmManipulator
 
 | Version    | Date       | State      | Description                                                                                                |
 | ---------- | ---------- | ---------- | ---------------------------------------------------------------------------------------------------------- |
+| 2.1.0      | 2021-03-17 | Task       | Add autorelease to TER function, add extension key to composer.json                                        |
 | 2.0.2      | 2020-09-30 | Bugfix     | Fix wrong translated german labels in backend for latitude/longitude.                                      |
 | 2.0.1      | 2020-09-21 | Task       | Small label change.                                                                                        |
 | 2.0.0 (!!!)| 2020-09-18 | Feature    | Allow more then only one address in Pi1 now. Allow to extend extension with PSR-14 eventdispatcher.        |
