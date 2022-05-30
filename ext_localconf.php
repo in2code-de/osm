@@ -30,7 +30,7 @@ call_user_func(
          * Add page TSConfig
          */
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-            '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:osm/Configuration/TSConfig/Osm.typoscript">'
+            '@import \'EXT:osm/Configuration/TSConfig/Osm.typoscript\''
         );
 
         /**
