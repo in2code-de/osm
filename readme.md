@@ -144,6 +144,7 @@ class OsmManipulator
 
 | Version     | Date       | State   | Description                                                                                         |
 |-------------|------------|---------|-----------------------------------------------------------------------------------------------------|
+| 3.0.0       | 2022-05-30 | Task    | Update for TYPO3 10 and 11                                                                          |
 | 2.1.1       | 2022-01-24 | Bugfix  | Prevent no_cache warnings in TYPO3 log file; set correct repo url in composer.json                  |
 | 2.1.0       | 2021-03-17 | Task    | Add autorelease to TER function, add extension key to composer.json                                 |
 | 2.0.2       | 2020-09-30 | Bugfix  | Fix wrong translated german labels in backend for latitude/longitude.                               |

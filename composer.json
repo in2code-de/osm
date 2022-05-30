@@ -1,36 +1,38 @@
 {
-  "name": "in2code/osm",
-  "description": "OSM - OpenStreetMap extension for TYPO3",
-  "keywords": [
-    "typo3",
-    "osm",
-    "OpenStreetMap"
-  ],
-  "homepage": "https://github.com/in2code-de/osm",
-  "authors": [
-    {
-      "name": "Alex Kellner",
-      "email": "alexander.kellner@in2code.de"
-    }
-  ],
-  "type": "typo3-cms-extension",
-  "license": "GPL-2.0-or-later",
-  "require": {
-    "php": ">=7.2.0",
-    "typo3/cms-core": "^10.4",
-    "ext-json": "*"
-  },
-  "replace": {
-    "typo3-ter/osm": "self.version"
-  },
-  "autoload": {
-    "psr-4": {
-      "In2code\\Osm\\": "Classes/"
-    }
-  },
-  "extra": {
-    "typo3/cms": {
-      "extension-key": "osm"
-    }
-  }
+	"name": "in2code/osm",
+	"description": "OSM - OpenStreetMap extension for TYPO3",
+	"keywords": [
+		"typo3",
+		"osm",
+		"OpenStreetMap"
+	],
+	"homepage": "https://github.com/in2code-de/osm",
+	"authors": [
+		{
+			"name": "Alex Kellner",
+			"email": "alexander.kellner@in2code.de",
+			"role": "Technical owner",
+			"homepage": "https://www.in2code.de"
+		}
+	],
+	"type": "typo3-cms-extension",
+	"license": "GPL-2.0-or-later",
+	"require": {
+		"php": ">=7.2.0",
+		"typo3/cms-core": "^10.4|^11.5",
+		"ext-json": "*"
+	},
+	"replace": {
+		"typo3-ter/osm": "self.version"
+	},
+	"autoload": {
+		"psr-4": {
+			"In2code\\Osm\\": "Classes/"
+		}
+	},
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "osm"
+		}
+	}
 }

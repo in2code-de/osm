@@ -13,7 +13,7 @@ call_user_func(
             'In2code.osm',
             'Pi1',
             [
-                'Map' => 'plugin1'
+                \In2code\Osm\Controller\MapController::class => 'plugin1'
             ]
         );
         if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('tt_address')) {
@@ -21,7 +21,7 @@ call_user_func(
                 'In2code.osm',
                 'Pi2',
                 [
-                    'Map' => 'plugin2'
+                    \In2code\Osm\Controller\MapController::class => 'plugin2'
                 ]
             );
         }
@@ -30,7 +30,7 @@ call_user_func(
          * Add page TSConfig
          */
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-            '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:osm/Configuration/TSConfig/Osm.typoscript">'
+            '@import \'EXT:osm/Configuration/TSConfig/Osm.typoscript\''
         );
 
         /**
