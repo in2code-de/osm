@@ -10,7 +10,7 @@ call_user_func(
          * Include Frontend Plugins
          */
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            'In2code.osm',
+            'Osm',
             'Pi1',
             [
                 \In2code\Osm\Controller\MapController::class => 'plugin1'
@@ -18,7 +18,7 @@ call_user_func(
         );
         if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('tt_address')) {
             \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-                'In2code.osm',
+                'Osm',
                 'Pi2',
                 [
                     \In2code\Osm\Controller\MapController::class => 'plugin2'
