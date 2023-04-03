@@ -2,21 +2,17 @@
 declare(strict_types=1);
 namespace In2code\Osm\Hooks\PageLayoutView;
 
+use Doctrine\DBAL\Exception as ExceptionDbal;
 use In2code\Osm\Utility\DatabaseUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * Class Plugin2PreviewRenderer
- */
 class Plugin2PreviewRenderer extends AbstractPreviewRenderer
 {
-    /**
-     * @var string
-     */
-    protected $listType = 'osm_pi2';
+    protected string $listType = 'osm_pi2';
 
     /**
-     * @return array
+     * @return array[]
+     * @throws ExceptionDbal
      */
     protected function getAssignmentsForTemplate(): array
     {
@@ -25,6 +21,7 @@ class Plugin2PreviewRenderer extends AbstractPreviewRenderer
 
     /**
      * @return array
+     * @throws ExceptionDbal
      */
     protected function getAddresses(): array
     {
@@ -44,16 +41,16 @@ class Plugin2PreviewRenderer extends AbstractPreviewRenderer
     /**
      * @param int $identifier
      * @return array
+     * @throws ExceptionDbal
      */
     protected function getAddress(int $identifier): array
     {
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable('tt_address');
         $address = $queryBuilder
             ->select('*')
-            ->from('tt_address')
-            ->where('uid=' . (int)$identifier)
-            ->execute()
-            ->fetch();
+            ->from('tt_address')->where('uid=' . (int)$identifier)
+            ->executeQuery()
+            ->fetchAssociative();
         if ($address !== false) {
             return $address;
         }

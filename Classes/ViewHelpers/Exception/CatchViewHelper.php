@@ -4,20 +4,10 @@ namespace In2code\Osm\ViewHelpers\Exception;
 
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
-/**
- * Class CatchViewHelper
- * @noinspection PhpUnused
- */
 class CatchViewHelper extends AbstractViewHelper
 {
-    /**
-     * @var bool
-     */
     protected $escapeOutput = false;
 
-    /**
-     * @return string
-     */
     public function render(): string
     {
         try {

@@ -6,20 +6,10 @@ use In2code\Osm\Utility\BackendUtility;
 use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
-/**
- * Class EditLinkViewHelper
- * @noinspection PhpUnused
- */
 class EditLinkViewHelper extends AbstractViewHelper
 {
-    /**
-     * @var bool
-     */
     protected $escapeOutput = false;
 
-    /**
-     * @return void
-     */
     public function initializeArguments()
     {
         parent::initializeArguments();
@@ -27,10 +17,6 @@ class EditLinkViewHelper extends AbstractViewHelper
         $this->registerArgument('table', 'string', 'Tablename', false, 'tt_content');
     }
 
-    /**
-     * @return string
-     * @throws RouteNotFoundException
-     */
     public function render(): string
     {
         $string = '<a href="';

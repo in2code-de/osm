@@ -10,37 +10,23 @@ use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
-/**
- * Class AbstractPreviewRenderer
- */
 abstract class AbstractPreviewRenderer implements PageLayoutViewDrawItemHookInterface
 {
     /**
      * @var array tt_content.*
      */
-    protected $data = [];
-
-    /**
-     * @var string
-     */
-    protected $cType = 'list';
+    protected array $data = [];
 
     /**
      * Overwrite tt_content.list_type in subclasses
      *
      * @var string
      */
-    protected $listType = '';
+    protected string $listType = '';
 
-    /**
-     * @var string
-     */
-    protected $templatePath = 'EXT:osm/Resources/Private/Templates/PreviewRenderer/';
+    protected string $cType = 'list';
+    protected string $templatePath = 'EXT:osm/Resources/Private/Templates/PreviewRenderer/';
 
-    /**
-     * AbstractPreviewRenderer constructor.
-     * @throws ConfigurationMissingException
-     */
     public function __construct()
     {
         if (empty($this->cType)) {
@@ -73,18 +59,12 @@ abstract class AbstractPreviewRenderer implements PageLayoutViewDrawItemHookInte
         }
     }
 
-    /**
-     * @return string
-     */
     protected function getHeaderContent(): string
     {
         return '<div id="element-tt_content-' . (int)$this->data['uid']
             . '" class="t3-ctype-identifier " data-ctype="' . $this->cType . '"></div>';
     }
 
-    /**
-     * @return string
-     */
     protected function getBodytext(): string
     {
         $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
@@ -107,27 +87,17 @@ abstract class AbstractPreviewRenderer implements PageLayoutViewDrawItemHookInte
         return [];
     }
 
-    /**
-     * @return array
-     */
     protected function getFlexForm(): array
     {
         $flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
         return $flexFormService->convertFlexFormContentToArray($this->data['pi_flexform']);
     }
 
-    /**
-     * @return bool
-     */
     protected function isTypeMatching(): bool
     {
         return $this->data['CType'] === $this->cType && $this->data['list_type'] === $this->listType;
     }
 
-    /**
-     * @return bool
-     * @throws TemplateFileMissingException
-     */
     protected function checkTemplateFile(): bool
     {
         if (is_file($this->getTemplateFile()) === false) {
@@ -139,11 +109,6 @@ abstract class AbstractPreviewRenderer implements PageLayoutViewDrawItemHookInte
         return true;
     }
 
-    /**
-     * Get absolute path to template file
-     *
-     * @return string
-     */
     protected function getTemplateFile(): string
     {
         return GeneralUtility::getFileAbsFileName(
