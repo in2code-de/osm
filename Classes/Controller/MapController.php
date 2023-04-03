@@ -20,6 +20,13 @@ class MapController extends ActionController
         $this->markers = $markers;
     }
 
+    public function initializeView($view)
+    {
+        $this->view->assignMultiple([
+            'configurationExists' => ($this->settings['configurationExists'] ?? '') === '1',
+        ]);
+    }
+
     public function plugin1Action(): ResponseInterface
     {
         $this->view->assignMultiple([
@@ -47,6 +54,6 @@ class MapController extends ActionController
     public function getMarkersAction(int $contentIdentifier): ResponseInterface
     {
         $markerContainer = $this->markers->getMarkers($contentIdentifier);
-        return $this->htmlResponse($markerContainer->getJson());
+        return $this->jsonResponse($markerContainer->getJson());
     }
 }

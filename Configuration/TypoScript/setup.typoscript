@@ -1,6 +1,7 @@
 plugin {
-  tx_osm_pi1 {
+  tx_osm {
     settings {
+      configurationExists = 1
     }
   }
 }
@@ -26,6 +27,5 @@ osmMarkers {
     vendorName = In2code
     controller = Map
     action = getMarkers
-    switchableControllerActions.Map.1 = getMarkers
   }
 }
