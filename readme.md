@@ -11,6 +11,9 @@ filled).
 No jQuery, just vanilla JS. Modern asset collector used for includes of JS or CSS. PSR-14 eventdispatcher can be used
 to manipulate markers and labels.
 
+> :warning: **TYPO3 12 compatibility**\
+> See [EAP page (DE)](https://www.in2code.de/agentur/typo3-extensions/early-access-programm/) or [EAP page (EN)](https://www.in2code.de/en/agency/typo3-extensions/early-access-program/) for more information how to get access to a TYPO3 12 version
+
 ## Plugin 1
 
 ![screenshot_pi1_frontend.png](Documentation/Images/screenshot_pi1_frontend.png "Map in frontend")
