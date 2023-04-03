@@ -22,11 +22,11 @@ class MarkerContainer
             /** @var Marker $marker */
             $marker = GeneralUtility::makeInstance(Marker::class);
             $marker
-                ->setMarker((int)$markerProperties['marker'])
-                ->setTitle($markerProperties['markertitle'])
-                ->setDescription($markerProperties['markerdescription'])
-                ->setLatitude((float)$markerProperties['latitude'])
-                ->setLongitude((float)$markerProperties['longitude']);
+                ->setMarker((int)($markerProperties['marker'] ?? 0))
+                ->setTitle($markerProperties['markertitle'] ?? '')
+                ->setDescription($markerProperties['markerdescription'] ?? '')
+                ->setLatitude((float)$markerProperties['latitude'] ?? 0.0)
+                ->setLongitude((float)$markerProperties['longitude'] ?? 0.0);
             if (!empty($markerProperties['tt_address_uid'])) {
                 $marker->setAddressIdentifier((int)$markerProperties['tt_address_uid']);
             }

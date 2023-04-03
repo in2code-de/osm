@@ -23,9 +23,8 @@ osmMarkers {
   10 {
     userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
     extensionName = Osm
-    pluginName = Pi1
+    pluginName = Markers
     vendorName = In2code
     controller = Map
-    action = getMarkers
   }
 }
