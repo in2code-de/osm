@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace In2code\Osm\Controller;
 
+use Doctrine\DBAL\Exception as ExceptionDbal;
 use Psr\Http\Message\ResponseInterface;
 use In2code\Osm\Domain\Service\GeoConverter;
 use In2code\Osm\Domain\Service\Markers;
@@ -50,6 +51,7 @@ class MapController extends ActionController
      * @return ResponseInterface
      * @throws RequestFailedException
      * @throws ConfigurationMissingException
+     * @throws ExceptionDbal
      */
     public function getMarkersAction(int $contentIdentifier): ResponseInterface
     {

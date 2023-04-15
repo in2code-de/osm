@@ -13,6 +13,8 @@ $EM_CONF[$_EXTKEY] = [
             'typo3' => '11.5.0-12.4.99'
         ],
         'conflicts' => [],
-        'suggests' => [],
+        'suggests' => [
+            'tt_address' => '0.0.0-0.0.0'
+        ],
     ]
 ];

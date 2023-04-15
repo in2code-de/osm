@@ -26,6 +26,9 @@ to manipulate markers and labels.
 
 ![screenshot_pi2_backend.png](Documentation/Images/screenshot_pi2_backend.png "Plugin in backend")
 
+**Note** Ensure that fields `tt_address.name`, `tt_address.description`, `tt_address.latitude` and
+`tt_address.longitude` is filled correctly
+
 ## Installation
 
 Add this extension via composer (TYPO3 in classic mode could work but is not supported):

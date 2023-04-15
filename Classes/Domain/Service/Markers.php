@@ -88,7 +88,7 @@ class Markers
             throw new ConfigurationMissingException('No addresses configured', 1597233868);
         }
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable('tt_address');
-        $records = (array)$queryBuilder
+        $records = $queryBuilder
             ->select(
                 'uid as tt_address_uid',
                 'name as markertitle',
@@ -96,7 +96,8 @@ class Markers
                 'latitude',
                 'longitude'
             )
-            ->from('tt_address')->where('uid in (' . $list . ')')
+            ->from('tt_address')
+            ->where('uid in (' . $list . ')')
             ->executeQuery()
             ->fetchAllAssociative();
         foreach ($records as &$record) {

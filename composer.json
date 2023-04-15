@@ -25,6 +25,9 @@
 	"replace": {
 		"typo3-ter/osm": "self.version"
 	},
+	"suggest": {
+		"friendsoftypo3/tt-address": "Show address markers from tt_address records in a map"
+	},
 	"autoload": {
 		"psr-4": {
 			"In2code\\Osm\\": "Classes/"
