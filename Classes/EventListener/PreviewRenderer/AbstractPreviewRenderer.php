@@ -1,20 +1,15 @@
 <?php
 declare(strict_types=1);
-namespace In2code\Osm\Hooks\PageLayoutView;
+namespace In2code\Osm\EventListener\PreviewRenderer;
 
 use In2code\Osm\Exception\ConfigurationMissingException;
 use In2code\Osm\Exception\TemplateFileMissingException;
-use TYPO3\CMS\Backend\View\PageLayoutView;
-use TYPO3\CMS\Backend\View\PageLayoutViewDrawItemHookInterface;
+use TYPO3\CMS\Backend\View\Event\PageContentPreviewRenderingEvent;
 use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
-/**
- * Class AbstractPreviewRenderer
- * Todo: Can be removed when TYPO3 11 support is dropped
- */
-abstract class AbstractPreviewRenderer implements PageLayoutViewDrawItemHookInterface
+abstract class AbstractPreviewRenderer
 {
     /**
      * @var array tt_content.*
@@ -29,6 +24,7 @@ abstract class AbstractPreviewRenderer implements PageLayoutViewDrawItemHookInte
     protected string $listType = '';
 
     protected string $cType = 'list';
+    protected string $table = 'tt_content';
     protected string $templatePath = 'EXT:osm/Resources/Private/Templates/PreviewRenderer/';
 
     public function __construct()
@@ -38,35 +34,12 @@ abstract class AbstractPreviewRenderer implements PageLayoutViewDrawItemHookInte
         }
     }
 
-    /**
-     * @param PageLayoutView $parentObject Calling parent object
-     * @param bool $drawItem Whether to draw the item using the default functionality
-     * @param string $headerContent Header content
-     * @param string $itemContent Item content
-     * @param array $row Record row of tt_content
-     *
-     * @return void
-     * @throws TemplateFileMissingException
-     */
-    public function preProcess(
-        PageLayoutView &$parentObject,
-        &$drawItem,
-        &$headerContent,
-        &$itemContent,
-        array &$row
-    ) {
-        $this->data = &$row;
-        if ($this->isTypeMatching() && $this->checkTemplateFile()) {
-            $drawItem = false;
-            $headerContent = $this->getHeaderContent();
-            $itemContent .= $this->getBodytext();
-        }
-    }
-
-    protected function getHeaderContent(): string
+    public function __invoke(PageContentPreviewRenderingEvent $event): void
     {
-        return '<div id="element-tt_content-' . (int)$this->data['uid']
-            . '" class="t3-ctype-identifier " data-ctype="' . $this->cType . '"></div>';
+        $this->data = $event->getRecord();
+        if ($this->isTypeMatching($event) && $this->checkTemplateFile()) {
+            $event->setPreviewContent($this->getBodytext());
+        }
     }
 
     protected function getBodytext(): string
@@ -76,7 +49,11 @@ abstract class AbstractPreviewRenderer implements PageLayoutViewDrawItemHookInte
         $flexForm = $this->getFlexForm();
         $standaloneView->assignMultiple($this->getAssignmentsForTemplate() + [
             'data' => $this->data,
-            'flexForm' => $flexForm
+            'flexForm' => $flexForm,
+            'cType' => $this->cType,
+            'list_type' => $this->listType,
+            'table' => $this->table,
+            'disableHeader' => true, // Should not be rendered (because same HTML template is used also for TYPO3 11)
         ]);
         return $standaloneView->render();
     }
@@ -97,9 +74,11 @@ abstract class AbstractPreviewRenderer implements PageLayoutViewDrawItemHookInte
         return $flexFormService->convertFlexFormContentToArray($this->data['pi_flexform']);
     }
 
-    protected function isTypeMatching(): bool
+    protected function isTypeMatching(PageContentPreviewRenderingEvent $event): bool
     {
-        return $this->data['CType'] === $this->cType && $this->data['list_type'] === $this->listType;
+        return $event->getTable() === $this->table
+            && $this->data['CType'] === $this->cType
+            && $this->data['list_type'] === $this->listType;
     }
 
     protected function checkTemplateFile(): bool
@@ -116,7 +95,7 @@ abstract class AbstractPreviewRenderer implements PageLayoutViewDrawItemHookInte
     protected function getTemplateFile(): string
     {
         return GeneralUtility::getFileAbsFileName(
-            $this->templatePath . ucfirst(GeneralUtility::underscoredToLowerCamelCase($this->listType)) . '.html'
+            $this->templatePath . GeneralUtility::underscoredToUpperCamelCase($this->listType) . '.html'
         );
     }
 }

@@ -6,3 +6,15 @@ services:
 
   In2code\Osm\:
     resource: '../Classes/*'
+
+  In2code\Osm\EventListener\PreviewRenderer\Plugin1PreviewRenderer:
+    tags:
+      - name: event.listener
+        identifier: 'osm/previewrendererpi1'
+        event: TYPO3\CMS\Backend\View\Event\PageContentPreviewRenderingEvent
+
+  In2code\Osm\EventListener\PreviewRenderer\Plugin2PreviewRenderer:
+    tags:
+      - name: event.listener
+        identifier: 'osm/previewrendererpi2'
+        event: TYPO3\CMS\Backend\View\Event\PageContentPreviewRenderingEvent

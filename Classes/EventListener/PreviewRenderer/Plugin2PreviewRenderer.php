@@ -1,15 +1,11 @@
 <?php
 declare(strict_types=1);
-namespace In2code\Osm\Hooks\PageLayoutView;
+namespace In2code\Osm\EventListener\PreviewRenderer;
 
 use Doctrine\DBAL\Exception as ExceptionDbal;
 use In2code\Osm\Utility\DatabaseUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * Class Plugin2PreviewRenderer
- * Todo: Can be removed when TYPO3 11 support is dropped
- */
 class Plugin2PreviewRenderer extends AbstractPreviewRenderer
 {
     protected string $listType = 'osm_pi2';

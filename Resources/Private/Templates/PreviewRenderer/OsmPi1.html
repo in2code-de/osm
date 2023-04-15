@@ -1,7 +1,9 @@
 {namespace osm=In2code\Osm\ViewHelpers}
 <osm:exception.catch>
     <osm:backend.editLink identifier="{data.uid}">
-        <f:if condition="{data.header}"><h2 style="margin-top: 12px;">{data.header}</h2></f:if>
+        <f:if condition="{data.header} && !{disableHeader}">
+            <h2 style="margin-top: 12px;">{data.header}</h2>
+        </f:if>
         <h3>
             <f:image src="EXT:osm/Resources/Public/Icons/Extension.svg" width="30" alt="OSM Extension" />
             <f:translate key="LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.title">OSM</f:translate>
