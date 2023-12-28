@@ -2,15 +2,15 @@
 
 
 <f:section name="main">
+    <f:if condition="!{configurationExists}">
+        <f:render section="errorNoTypoScript" arguments="{_all}"/>
+    </f:if>
     <f:if condition="{settings.addresses -> f:count()} > 0">
         <f:then>
             <f:render section="map" arguments="{_all}"/>
         </f:then>
         <f:else>
-            <div class="alert alert-warning" role="alert">
-                <h4 class="alert-heading">Address not given</h4>
-                <p>Given address could not converted into geo coordinates!</p>
-            </div>
+            <f:render section="errorNoAddress" arguments="{_all}"/>
         </f:else>
     </f:if>
 </f:section>
@@ -20,7 +20,23 @@
     <div
         class="osm-map"
         data-osm="map"
-        data-osm-markerurl="{f:uri.page(additionalParams: '{type:1597149189,tx_osm_pi1:\'{contentIdentifier:data.uid}\'}')}"
+        data-osm-markerurl="{f:uri.page(additionalParams: '{type:1597149189,tx_osm_markers:\'{contentIdentifier:data.uid}\'}')}"
         data-osm-markergraphics="{f:uri.resource(path: 'Icons/Marker.png')}"
         data-osm-zoom="{settings.zoom}"></div>
+</f:section>
+
+
+<f:section name="errorNoAddress">
+    <div class="alert alert-warning" role="alert">
+        <h4 class="alert-heading">Address not given</h4>
+        <p>Given address could not converted into geo coordinates!</p>
+    </div>
+</f:section>
+
+
+<f:section name="errorNoTypoScript">
+    <div class="alert alert-warning" role="alert">
+        <h4 class="alert-heading">Configuration is missing</h4>
+        <p>Maybe TypoScript was not added in static templates section?</p>
+    </div>
 </f:section>

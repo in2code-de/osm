@@ -1,5 +1,5 @@
 <?php
-if (!defined('TYPO3_MODE')) {
+if (!defined('TYPO3')) {
     die('Access denied.');
 }
 
@@ -19,7 +19,8 @@ call_user_func(
         );
 
         /**
-         * Register own preview renderer in backend
+         * Register own preview renderer in backend for TYPO3 < 12
+         * Todo: Can be removed when TYPO3 11 support is dropped
          */
         $layout = 'cms/layout/class.tx_cms_layout.php';
         $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$layout]['tt_content_drawItem']['osm_pi1'] =

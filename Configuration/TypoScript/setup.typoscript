@@ -1,6 +1,7 @@
 plugin {
-  tx_osm_pi1 {
+  tx_osm {
     settings {
+      configurationExists = 1
     }
   }
 }
@@ -22,10 +23,8 @@ osmMarkers {
   10 {
     userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
     extensionName = Osm
-    pluginName = Pi1
+    pluginName = Markers
     vendorName = In2code
     controller = Map
-    action = getMarkers
-    switchableControllerActions.Map.1 = getMarkers
   }
 }

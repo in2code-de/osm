@@ -8,9 +8,6 @@ use TYPO3\CMS\Backend\Routing\Router;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * Class BackendUtility
- */
 class BackendUtility
 {
     /**
@@ -50,6 +47,7 @@ class BackendUtility
      * @param string $route
      * @param array $parameters
      * @return string
+     * @throws RouteNotFoundException
      */
     public static function getRoute(string $route, array $parameters = []): string
     {

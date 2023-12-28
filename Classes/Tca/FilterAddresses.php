@@ -2,15 +2,14 @@
 declare(strict_types=1);
 namespace In2code\Osm\Tca;
 
+use Doctrine\DBAL\Exception as ExceptionDbal;
 use In2code\Osm\Utility\DatabaseUtility;
+use Throwable;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use UnexpectedValueException;
 
-/**
- * Class FilterAddresses
- * @noinspection PhpUnused
- */
 class FilterAddresses
 {
     /**
@@ -24,6 +23,7 @@ class FilterAddresses
      *
      * @param array $params
      * @return void
+     * @throws ExceptionDbal
      */
     public function filter(array &$params): void
     {
@@ -43,6 +43,7 @@ class FilterAddresses
      * @param int $addressIdentifier
      * @param array $pageIdentifiers
      * @return bool
+     * @throws ExceptionDbal
      */
     protected function isRecordInAllowedPages(int $addressIdentifier, array $pageIdentifiers): bool
     {
@@ -52,20 +53,20 @@ class FilterAddresses
     /**
      * @param int $addressIdentifier
      * @return int
+     * @throws ExceptionDbal
      */
     protected function getPidOfAddressRecord(int $addressIdentifier): int
     {
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable('tt_address', true);
         return (int)$queryBuilder
             ->select('pid')
-            ->from('tt_address')
-            ->where('uid=' . (int)$addressIdentifier)
-            ->execute()
-            ->fetchColumn();
+            ->from('tt_address')->where('uid=' . (int)$addressIdentifier)->executeQuery()
+            ->fetchOne();
     }
 
     /**
      * @return array
+     * @throws ExceptionDbal
      */
     protected function getPageIdentifiers(): array
     {
@@ -73,37 +74,32 @@ class FilterAddresses
         try {
             $list = ArrayUtility::getValueByPath($configuration, 'tx_osm./flexform./pi2./addressPageIdentifiers');
             return GeneralUtility::intExplode(',', $list, true);
-        } catch (\Exception $exception) {
+        } catch (Throwable $exception) {
             return [];
         }
     }
 
     /**
      * @return int
+     * @throws ExceptionDbal
      */
     protected function getCurrentPageIdentifier(): int
     {
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable('tt_content', true);
         return (int)$queryBuilder
             ->select('pid')
-            ->from('tt_content')
-            ->where('uid=' . (int)$this->getCurrentContentIdentifier())
-            ->execute()
-            ->fetchColumn();
+            ->from('tt_content')->where('uid=' . (int)$this->getCurrentContentIdentifier())
+            ->executeQuery()
+            ->fetchOne();
     }
 
-    /**
-     * @return int
-     */
     protected function getCurrentContentIdentifier(): int
     {
-        $pageIdentifier = 0;
         $parameters = GeneralUtility::_GP('edit') ?: [];
         if (!empty($parameters['tt_content']) && is_array($parameters['tt_content'])) {
-            $pageIdentifier = (int)key($parameters['tt_content']);
+            return (int)key($parameters['tt_content']);
         } else {
-            throw new \UnexpectedValueException('Could not determine content identifier', 1599738783);
+            throw new UnexpectedValueException('Could not determine content identifier', 1599738783);
         }
-        return $pageIdentifier;
     }
 }

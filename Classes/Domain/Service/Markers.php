@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace In2code\Osm\Domain\Service;
 
+use Doctrine\DBAL\Exception as ExceptionDbal;
 use In2code\Osm\Domain\Model\MarkerContainer;
 use In2code\Osm\Exception\ConfigurationMissingException;
 use In2code\Osm\Exception\RequestFailedException;
@@ -12,20 +13,10 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * Class Markers
- */
 class Markers
 {
-    /**
-     * @var EventDispatcherInterface
-     */
-    protected $evenDispatcher = null;
+    protected ?EventDispatcherInterface $evenDispatcher = null;
 
-    /**
-     * Markers constructor.
-     * @param EventDispatcherInterface $evenDispatcher
-     */
     public function __construct(EventDispatcherInterface $evenDispatcher)
     {
         $this->evenDispatcher = $evenDispatcher;
@@ -36,6 +27,7 @@ class Markers
      * @return MarkerContainer
      * @throws RequestFailedException
      * @throws ConfigurationMissingException
+     * @throws ExceptionDbal
      */
     public function getMarkers(int $contentIdentifier): MarkerContainer
     {
@@ -87,6 +79,7 @@ class Markers
      * @param array $configuration
      * @return array
      * @throws ConfigurationMissingException
+     * @throws ExceptionDbal
      */
     protected function getMarkersFromAddresses(array $configuration): array
     {
@@ -95,7 +88,7 @@ class Markers
             throw new ConfigurationMissingException('No addresses configured', 1597233868);
         }
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable('tt_address');
-        $records = (array)$queryBuilder
+        $records = $queryBuilder
             ->select(
                 'uid as tt_address_uid',
                 'name as markertitle',
@@ -105,8 +98,8 @@ class Markers
             )
             ->from('tt_address')
             ->where('uid in (' . $list . ')')
-            ->execute()
-            ->fetchAll();
+            ->executeQuery()
+            ->fetchAllAssociative();
         foreach ($records as &$record) {
             if (!empty($record['markertitle'])) {
                 $record['marker'] = 1;
@@ -137,16 +130,16 @@ class Markers
     /**
      * @param int $contentIdentifier
      * @return array
+     * @throws ExceptionDbal
      */
     protected function getFlexFormFromContentElement(int $contentIdentifier): array
     {
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable('tt_content');
         $xml = $queryBuilder
             ->select('pi_flexform')
-            ->from('tt_content')
-            ->where('uid=' . (int)$contentIdentifier)
-            ->execute()
-            ->fetchColumn();
+            ->from('tt_content')->where('uid=' . (int)$contentIdentifier)
+            ->executeQuery()
+            ->fetchOne();
         /** @var FlexFormService $flexFormService */
         $flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
         return $flexFormService->convertFlexFormContentToArray($xml);
@@ -155,6 +148,7 @@ class Markers
     /**
      * @param int $contentIdentifier
      * @return bool
+     * @throws ExceptionDbal
      */
     protected function isPlugin1(int $contentIdentifier): bool
     {
@@ -163,7 +157,7 @@ class Markers
             ->select('list_type')
             ->from('tt_content')
             ->where('uid=' . (int)$contentIdentifier . ' and CType="list"')
-            ->execute()
-            ->fetchColumn() === 'osm_pi1';
+            ->executeQuery()
+            ->fetchOne() === 'osm_pi1';
     }
 }

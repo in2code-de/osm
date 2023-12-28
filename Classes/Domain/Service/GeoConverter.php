@@ -7,9 +7,6 @@ use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * Class GeoConverter
- */
 class GeoConverter
 {
     /**

@@ -2,15 +2,8 @@
 declare(strict_types=1);
 namespace In2code\Osm\Utility;
 
-/**
- * Class ArrayUtility
- */
 class ArrayUtility
 {
-    /**
-     * @param array $array
-     * @return array
-     */
     public static function htmlSpecialCharsOnArray(array $array): array
     {
         foreach ($array as &$value) {

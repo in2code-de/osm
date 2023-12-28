@@ -43,10 +43,10 @@
 			<trans-unit id="pi2.description">
 				<source>Show addresses from tt_address</source>
 			</trans-unit>
-			<trans-unit id="pi2.addresses">
+			<trans-unit id="pi2.settings.addresses">
 				<source>Select addresses</source>
 			</trans-unit>
-			<trans-unit id="pi2.zoom">
+			<trans-unit id="pi2.settings.zoom">
 				<source>Zoom factor</source>
 			</trans-unit>
 

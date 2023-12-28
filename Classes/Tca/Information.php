@@ -5,19 +5,10 @@ namespace In2code\Osm\Tca;
 use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
-/**
- * Class Information
- */
 class Information extends AbstractFormElement
 {
-    /**
-     * @var string
-     */
-    protected $label = 'LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.information';
+    protected string $label = 'LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.information';
 
-    /**
-     * @return array
-     */
     public function render()
     {
         $result = $this->initializeResultArray();
@@ -30,9 +21,6 @@ class Information extends AbstractFormElement
         return $result;
     }
 
-    /**
-     * @return bool
-     */
     protected function isNew(): bool
     {
         return $this->data['command'] === 'new';
