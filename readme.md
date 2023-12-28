@@ -2,8 +2,8 @@
 
 ## Introduction
 
-A small but modern OpenStreetMap extension for TYPO3 (10 and newer). You can simply show a map with or without markers.
-One or more addresses can be added as human readable address or with geo coordinates.
+A small but modern OpenStreetMap extension for TYPO3 (11 and newer). You can simply show a map with or without markers.
+One or more addresses can be added as human-readable address or with geo coordinates.
 
 A second plugin allows you to show addresses from tt_address records (when tt_address.latitude and .longitude is
 filled).
@@ -11,7 +11,7 @@ filled).
 No jQuery, just vanilla JS. Modern asset collector used for includes of JS or CSS. PSR-14 eventdispatcher can be used
 to manipulate markers and labels.
 
-> :warning: **TYPO3 12 compatibility**\
+> :warning: **TYPO3 13 compatibility**\
 > See [EAP page (DE)](https://www.in2code.de/agentur/typo3-extensions/early-access-programm/) or [EAP page (EN)](https://www.in2code.de/en/agency/typo3-extensions/early-access-program/) for more information how to get access to a TYPO3 12 version
 
 ## Plugin 1
