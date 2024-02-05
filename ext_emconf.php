@@ -1,20 +1,23 @@
 <?php
+
 $EM_CONF[$_EXTKEY] = [
     'title' => 'osm - OpenStreetMap',
     'description' => 'A smart OpenStreetMap solution in TYPO3',
     'category' => 'plugin',
-    'version' => '4.0.0',
+    'version' => '4.0.1',
     'author' => 'Alex Kellner',
     'author_email' => 'alexander.kellner@in2code.de',
     'author_company' => 'in2code.de',
     'state' => 'stable',
     'constraints' => [
         'depends' => [
-            'typo3' => '11.5.0-12.4.99'
+            'typo3' => '12.4.0 - 12.4.99',
+            'php' => '8.1.0 - 8.2.99',
         ],
-        'conflicts' => [],
+        'conflicts' => [
+        ],
         'suggests' => [
-            'tt_address' => '0.0.0-0.0.0'
+            'tt_address' => '0.0.0 - 0.0.0',
         ],
-    ]
+    ],
 ];
