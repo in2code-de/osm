@@ -150,6 +150,9 @@ class OsmManipulator
 
 | Version     | Date       | State   | Description                                                                                         |
 |-------------|------------|---------|-----------------------------------------------------------------------------------------------------|
+| 4.0.2       | 2024-04-12 | Bugfix  | Fix problem with tt_address TCA if there is no tt_address installed                                 |
+| 4.0.1       | 2024-02-05 | Bugfix  | Small bugfix for TYPO3 TER upload                                                                   |
+| 4.0.0       | 2023-12-28 | Task    | Support TYPO3 12                                                                                    |
 | 3.1.0       | 2023-01-11 | Task    | Prevent unneeded warning in log                                                                     |
 | 3.0.0       | 2022-05-30 | Task    | Update for TYPO3 10 and 11                                                                          |
 | 2.1.1       | 2022-01-24 | Bugfix  | Prevent no_cache warnings in TYPO3 log file; set correct repo url in composer.json                  |
