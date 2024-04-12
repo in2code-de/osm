@@ -3,4 +3,6 @@ if (!defined('TYPO3')) {
     die('Access denied.');
 }
 
-$GLOBALS['TCA']['tt_address']['columns']['description']['config']['enableRichtext'] = false;
+if (($GLOBALS['TCA']['tt_address']['columns']['description']['config']['enableRichtext'] ?? null) !== null) {
+    $GLOBALS['TCA']['tt_address']['columns']['description']['config']['enableRichtext'] = false;
+}
