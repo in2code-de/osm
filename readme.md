@@ -150,6 +150,7 @@ class OsmManipulator
 
 | Version     | Date       | State   | Description                                                                                         |
 |-------------|------------|---------|-----------------------------------------------------------------------------------------------------|
+| 4.0.3       | 2024-08-23 | Bugfix  | Fix possible missing array key exception in Pi1                                                     |
 | 4.0.2       | 2024-04-12 | Bugfix  | Fix problem with tt_address TCA if there is no tt_address installed                                 |
 | 4.0.1       | 2024-02-05 | Bugfix  | Small bugfix for TYPO3 TER upload                                                                   |
 | 4.0.0       | 2023-12-28 | Task    | Support TYPO3 12                                                                                    |
