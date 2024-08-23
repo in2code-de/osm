@@ -55,7 +55,10 @@ class Markers
         foreach ($configuration['settings']['addresses'] as $addressConfiguration) {
             if ($addressConfiguration !== []) {
                 $address = $addressConfiguration['config'];
-                if ($address['address'] !== '' || ($address['latitude'] !== '' && $address['longitude'] !== '')) {
+                if (
+                    ($address['address'] ?? '') !== ''
+                    || (($address['latitude'] ?? '') !== '' && ($address['longitude'] ?? '') !== '')
+                ) {
                     $addresses[] = $address;
                 }
             }
