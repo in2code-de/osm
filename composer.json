@@ -18,8 +18,8 @@
 	"type": "typo3-cms-extension",
 	"license": "GPL-2.0-or-later",
 	"require": {
-		"php": "^7.4 || ^8.0",
-		"typo3/cms-core": "^11.5 || ^12.3",
+		"php": "^8.2",
+		"typo3/cms-core": "^12.4 || ^13.4",
 		"ext-json": "*"
 	},
 	"replace": {
@@ -33,8 +33,19 @@
 			"In2code\\Osm\\": "Classes/"
 		}
 	},
+	"config": {
+		"vendor-dir": ".build/vendor",
+		"bin-dir": ".build/bin",
+		"sort-packages": true,
+		"allow-plugins": {
+			"typo3/cms-composer-installers": true,
+			"typo3/class-alias-loader": true
+		}
+	},
 	"extra": {
 		"typo3/cms": {
+			"cms-package-dir": "{$vendor-dir}/typo3/cms",
+			"web-dir": ".build/public",
 			"extension-key": "osm"
 		}
 	}
