@@ -50,6 +50,7 @@
 		}
 	},
 	"require-dev": {
+		"ssch/typo3-rector": "^3.0",
 		"typo3/cms-backend": "^13.4",
 		"typo3/cms-extbase": "^13.4",
 		"typo3/cms-extensionmanager": "^13.4",
@@ -58,5 +59,9 @@
 		"typo3/cms-frontend": "^13.4",
 		"typo3/cms-install": "^13.4",
 		"typo3/minimal": "^13"
+	},
+	"scripts": {
+		"test:rector": "rector -n",
+		"test:rector:fix": "rector"
 	}
 }
