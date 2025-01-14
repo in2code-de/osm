@@ -15,16 +15,11 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class Markers
 {
-    protected ?EventDispatcherInterface $evenDispatcher = null;
-
-    public function __construct(EventDispatcherInterface $evenDispatcher)
+    public function __construct(protected ?EventDispatcherInterface $evenDispatcher)
     {
-        $this->evenDispatcher = $evenDispatcher;
     }
 
     /**
-     * @param int $contentIdentifier
-     * @return MarkerContainer
      * @throws RequestFailedException
      * @throws ConfigurationMissingException
      * @throws ExceptionDbal
@@ -37,6 +32,7 @@ class Markers
         } else {
             $markers = $this->getMarkersFromAddresses($configuration);
         }
+
         $markers = ArrayUtility::htmlSpecialCharsOnArray($markers);
         /** @var MarkerContainer $markerContainer */
         $markerContainer = GeneralUtility::makeInstance(MarkerContainer::class, $markers, $configuration);
@@ -45,8 +41,6 @@ class Markers
     }
 
     /**
-     * @param array $configuration
-     * @return array
      * @throws RequestFailedException
      */
     protected function buildFromPi1(array $configuration): array
@@ -63,8 +57,7 @@ class Markers
                 }
             }
         }
-        $addresses = $this->convertAddressesToGeoCoordinates($addresses);
-        return $addresses;
+        return $this->convertAddressesToGeoCoordinates($addresses);
     }
 
     /**
@@ -79,8 +72,6 @@ class Markers
      *          'longitude' => 12.1234567
      *      ]
      *  ]
-     * @param array $configuration
-     * @return array
      * @throws ConfigurationMissingException
      * @throws ExceptionDbal
      */
@@ -90,6 +81,7 @@ class Markers
         if ($list === '') {
             throw new ConfigurationMissingException('No addresses configured', 1597233868);
         }
+
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable('tt_address');
         $records = $queryBuilder
             ->select(
@@ -108,12 +100,11 @@ class Markers
                 $record['marker'] = 1;
             }
         }
+
         return $records;
     }
 
     /**
-     * @param array $markers
-     * @return array
      * @throws RequestFailedException
      */
     protected function convertAddressesToGeoCoordinates(array $markers): array
@@ -127,12 +118,11 @@ class Markers
                 $marker['longitude'] = $coordinates[1];
             }
         }
+
         return $markers;
     }
 
     /**
-     * @param int $contentIdentifier
-     * @return array
      * @throws ExceptionDbal
      */
     protected function getFlexFormFromContentElement(int $contentIdentifier): array
@@ -140,7 +130,7 @@ class Markers
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable('tt_content');
         $xml = $queryBuilder
             ->select('pi_flexform')
-            ->from('tt_content')->where('uid=' . (int)$contentIdentifier)
+            ->from('tt_content')->where('uid=' . $contentIdentifier)
             ->executeQuery()
             ->fetchOne();
         /** @var FlexFormService $flexFormService */
@@ -149,8 +139,6 @@ class Markers
     }
 
     /**
-     * @param int $contentIdentifier
-     * @return bool
      * @throws ExceptionDbal
      */
     protected function isPlugin1(int $contentIdentifier): bool
@@ -159,7 +147,7 @@ class Markers
         return (string)$queryBuilder
             ->select('list_type')
             ->from('tt_content')
-            ->where('uid=' . (int)$contentIdentifier . ' and CType="list"')
+            ->where('uid=' . $contentIdentifier . ' and CType="list"')
             ->executeQuery()
             ->fetchOne() === 'osm_pi1';
     }

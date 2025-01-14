@@ -12,16 +12,11 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 class MapController extends ActionController
 {
-    protected ?GeoConverter $geoConverter = null;
-    protected ?Markers $markers = null;
-
-    public function __construct(GeoConverter $geoConverter, Markers $markers)
+    public function __construct(protected ?GeoConverter $geoConverter, protected ?Markers $markers)
     {
-        $this->geoConverter = $geoConverter;
-        $this->markers = $markers;
     }
 
-    public function initializeView($view)
+    public function initializeView($view): void
     {
         $this->view->assignMultiple([
             'configurationExists' => ($this->settings['configurationExists'] ?? '') === '1',
@@ -31,7 +26,7 @@ class MapController extends ActionController
     public function plugin1Action(): ResponseInterface
     {
         $this->view->assignMultiple([
-            'data' => $this->configurationManager->getContentObject()->data
+            'data' => $this->request->getAttribute('currentContentObject')->data
         ]);
         return $this->htmlResponse();
     }
@@ -39,7 +34,7 @@ class MapController extends ActionController
     public function plugin2Action(): ResponseInterface
     {
         $this->view->assignMultiple([
-            'data' => $this->configurationManager->getContentObject()->data
+            'data' => $this->request->getAttribute('currentContentObject')->data
         ]);
         return $this->htmlResponse();
     }
@@ -47,8 +42,6 @@ class MapController extends ActionController
     /**
      * Called from AJAX to get a list of markers to insert
      *
-     * @param int $contentIdentifier
-     * @return ResponseInterface
      * @throws RequestFailedException
      * @throws ConfigurationMissingException
      * @throws ExceptionDbal

@@ -22,12 +22,11 @@ class GeoConverter
         if (!empty($results[0]['lat']) && !empty($results[0]['lon'])) {
             return [(float)$results[0]['lat'], (float)$results[0]['lon']];
         }
+
         return [];
     }
 
     /**
-     * @param string $url
-     * @return array
      * @throws RequestFailedException
      */
     protected function getJsonResultFromUrl(string $url): array
@@ -36,7 +35,7 @@ class GeoConverter
         /** @var ResponseInterface $response */
         $response = $requestFactory->request($url, 'GET');
         if ($response->getStatusCode() === 200) {
-            if (strpos($response->getHeaderLine('Content-Type'), 'application/json') === 0) {
+            if (str_starts_with($response->getHeaderLine('Content-Type'), 'application/json')) {
                 $json = $response->getBody()->getContents();
                 $result = json_decode($json, true);
                 if (is_array($result)) {
@@ -48,6 +47,7 @@ class GeoConverter
         } else {
             throw new RequestFailedException('Could not connect to given address', 1597140820);
         }
+
         return [];
     }
 }

@@ -16,8 +16,7 @@ class CatchViewHelper extends AbstractViewHelper
             $string = '<div class="alert alert-danger" role="alert">';
             $string .= $exception->getMessage();
             $string .= ' (' . $exception->getCode() . ')';
-            $string .= '</div>';
-            return $string;
+            return $string . '</div>';
         }
     }
 }

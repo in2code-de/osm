@@ -8,16 +8,11 @@ class MarkerContainer
 {
     protected array $markers = [];
 
-    /**
+    public function __construct(array $markers, /**
      * Configuration from FlexForm
-     *
-     * @var array
      */
-    protected array $configuration = [];
-
-    public function __construct(array $markers, array $configuration)
+    protected array $configuration)
     {
-        $this->configuration = $configuration;
         foreach ($markers as $markerProperties) {
             /** @var Marker $marker */
             $marker = GeneralUtility::makeInstance(Marker::class);
@@ -30,6 +25,7 @@ class MarkerContainer
             if (!empty($markerProperties['tt_address_uid'])) {
                 $marker->setAddressIdentifier((int)$markerProperties['tt_address_uid']);
             }
+
             $this->addMarker($marker);
         }
     }
@@ -45,6 +41,7 @@ class MarkerContainer
         foreach ($this->getMarkers() as $marker) {
             $properties[] = $marker->getProperties();
         }
+
         return $properties;
     }
 

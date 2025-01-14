@@ -23,17 +23,16 @@ abstract class AbstractPreviewRenderer implements PageLayoutViewDrawItemHookInte
 
     /**
      * Overwrite tt_content.list_type in subclasses
-     *
-     * @var string
      */
     protected string $listType = '';
 
     protected string $cType = 'list';
+
     protected string $templatePath = 'EXT:osm/Resources/Private/Templates/PreviewRenderer/';
 
     public function __construct()
     {
-        if (empty($this->cType)) {
+        if ($this->cType === '' || $this->cType === '0') {
             throw new ConfigurationMissingException('Property cType must not be empty', 1597220468);
         }
     }
@@ -45,16 +44,15 @@ abstract class AbstractPreviewRenderer implements PageLayoutViewDrawItemHookInte
      * @param string $itemContent Item content
      * @param array $row Record row of tt_content
      *
-     * @return void
      * @throws TemplateFileMissingException
      */
     public function preProcess(
         PageLayoutView &$parentObject,
         &$drawItem,
         &$headerContent,
-        &$itemContent,
+        string &$itemContent,
         array &$row
-    ) {
+    ): void {
         $this->data = &$row;
         if ($this->isTypeMatching() && $this->checkTemplateFile()) {
             $drawItem = false;
@@ -73,6 +71,7 @@ abstract class AbstractPreviewRenderer implements PageLayoutViewDrawItemHookInte
     {
         $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
         $standaloneView->setTemplatePathAndFilename($this->getTemplateFile());
+
         $flexForm = $this->getFlexForm();
         $standaloneView->assignMultiple($this->getAssignmentsForTemplate() + [
             'data' => $this->data,
@@ -83,8 +82,6 @@ abstract class AbstractPreviewRenderer implements PageLayoutViewDrawItemHookInte
 
     /**
      * Can be extended from children classes
-     *
-     * @return array
      */
     protected function getAssignmentsForTemplate(): array
     {
@@ -110,6 +107,7 @@ abstract class AbstractPreviewRenderer implements PageLayoutViewDrawItemHookInte
                 1597220851
             );
         }
+
         return true;
     }
 

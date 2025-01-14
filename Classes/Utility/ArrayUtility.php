@@ -13,6 +13,7 @@ class ArrayUtility
                 $value = htmlspecialchars($value);
             }
         }
+
         return $array;
     }
 }

@@ -21,8 +21,6 @@ class FilterAddresses
      *      }
      *  }
      *
-     * @param array $params
-     * @return void
      * @throws ExceptionDbal
      */
     public function filter(array &$params): void
@@ -30,19 +28,18 @@ class FilterAddresses
         $pageIdentifiers = $this->getPageIdentifiers();
         if ($pageIdentifiers !== []) {
             foreach ($params['items'] as $key => $item) {
-                if (is_int($item[1])) {
-                    if ($this->isRecordInAllowedPages($item[1], $pageIdentifiers) === false) {
-                        unset($params['items'][$key]);
-                    }
+                if (!is_int($item[1])) {
+                    continue;
                 }
+                if ($this->isRecordInAllowedPages($item[1], $pageIdentifiers)) {
+                    continue;
+                }
+                unset($params['items'][$key]);
             }
         }
     }
 
     /**
-     * @param int $addressIdentifier
-     * @param array $pageIdentifiers
-     * @return bool
      * @throws ExceptionDbal
      */
     protected function isRecordInAllowedPages(int $addressIdentifier, array $pageIdentifiers): bool
@@ -51,8 +48,6 @@ class FilterAddresses
     }
 
     /**
-     * @param int $addressIdentifier
-     * @return int
      * @throws ExceptionDbal
      */
     protected function getPidOfAddressRecord(int $addressIdentifier): int
@@ -60,12 +55,11 @@ class FilterAddresses
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable('tt_address', true);
         return (int)$queryBuilder
             ->select('pid')
-            ->from('tt_address')->where('uid=' . (int)$addressIdentifier)->executeQuery()
+            ->from('tt_address')->where('uid=' . $addressIdentifier)->executeQuery()
             ->fetchOne();
     }
 
     /**
-     * @return array
      * @throws ExceptionDbal
      */
     protected function getPageIdentifiers(): array
@@ -74,13 +68,12 @@ class FilterAddresses
         try {
             $list = ArrayUtility::getValueByPath($configuration, 'tx_osm./flexform./pi2./addressPageIdentifiers');
             return GeneralUtility::intExplode(',', $list, true);
-        } catch (Throwable $exception) {
+        } catch (Throwable) {
             return [];
         }
     }
 
     /**
-     * @return int
      * @throws ExceptionDbal
      */
     protected function getCurrentPageIdentifier(): int
@@ -88,18 +81,17 @@ class FilterAddresses
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable('tt_content', true);
         return (int)$queryBuilder
             ->select('pid')
-            ->from('tt_content')->where('uid=' . (int)$this->getCurrentContentIdentifier())
+            ->from('tt_content')->where('uid=' . $this->getCurrentContentIdentifier())
             ->executeQuery()
             ->fetchOne();
     }
 
     protected function getCurrentContentIdentifier(): int
     {
-        $parameters = GeneralUtility::_GP('edit') ?: [];
+        $parameters = $GLOBALS['TYPO3_REQUEST']->getParsedBody()['edit'] ?? $GLOBALS['TYPO3_REQUEST']->getQueryParams()['edit'] ?? null ?: [];
         if (!empty($parameters['tt_content']) && is_array($parameters['tt_content'])) {
             return (int)key($parameters['tt_content']);
-        } else {
-            throw new UnexpectedValueException('Could not determine content identifier', 1599738783);
         }
+        throw new UnexpectedValueException('Could not determine content identifier', 1599738783);
     }
 }

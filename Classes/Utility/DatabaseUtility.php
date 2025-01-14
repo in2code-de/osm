@@ -12,9 +12,10 @@ class DatabaseUtility
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($tableName);
-        if ($removeRestrictions === true) {
+        if ($removeRestrictions) {
             $queryBuilder->getRestrictions()->removeAll();
         }
+
         return $queryBuilder;
     }
 

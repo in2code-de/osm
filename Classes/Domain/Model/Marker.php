@@ -6,30 +6,30 @@ class Marker
 {
     /**
      * tt_address.uid if this marker is created from such a record
-     *
-     * @var int
      */
     protected int $addressIdentifier = 0;
 
     /**
      * Should a marker be displayed?
-     *
-     * @var int
      */
     protected int $marker = 0;
 
     protected string $title = '';
+
     protected string $description = '';
 
     protected float $latitude = 0.0;
+
     protected float $longitude = 0.0;
 
     protected string $icon = '';
 
     protected int $iconWidth = 0;
+
     protected int $iconHeight = 0;
 
     protected ?int $iconOffsetX = null;
+
     protected ?int $iconOffsetY = null;
 
     public function getAddressIdentifier(): int
@@ -165,21 +165,27 @@ class Marker
         if ($this->getAddressIdentifier() > 0) {
             $properties['addressIdentifier'] = $this->getAddressIdentifier();
         }
+
         if ($this->getIcon() !== '') {
             $properties['icon'] = $this->getIcon();
         }
+
         if ($this->getIconWidth() > 0) {
             $properties['iconWidth'] = $this->getIconWidth();
         }
+
         if ($this->getIconHeight() > 0) {
             $properties['iconHeight'] = $this->getIconHeight();
         }
+
         if ($this->getIconOffsetX() !== null) {
             $properties['iconOffsetX'] = $this->getIconOffsetX();
         }
+
         if ($this->getIconOffsetY() !== null) {
             $properties['iconOffsetY'] = $this->getIconOffsetY();
         }
+
         return $properties;
     }
 }

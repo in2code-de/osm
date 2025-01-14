@@ -24,7 +24,6 @@ class Plugin2PreviewRenderer extends AbstractPreviewRenderer
     }
 
     /**
-     * @return array
      * @throws ExceptionDbal
      */
     protected function getAddresses(): array
@@ -39,12 +38,11 @@ class Plugin2PreviewRenderer extends AbstractPreviewRenderer
                 }
             }
         }
+
         return $addresses;
     }
 
     /**
-     * @param int $identifier
-     * @return array
      * @throws ExceptionDbal
      */
     protected function getAddress(int $identifier): array
@@ -52,12 +50,13 @@ class Plugin2PreviewRenderer extends AbstractPreviewRenderer
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable('tt_address');
         $address = $queryBuilder
             ->select('*')
-            ->from('tt_address')->where('uid=' . (int)$identifier)
+            ->from('tt_address')->where('uid=' . $identifier)
             ->executeQuery()
             ->fetchAssociative();
         if ($address !== false) {
             return $address;
         }
+
         return [];
     }
 }

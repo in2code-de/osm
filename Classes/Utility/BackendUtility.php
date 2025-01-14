@@ -11,10 +11,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class BackendUtility
 {
     /**
-     * @param string $tableName
-     * @param int $identifier
-     * @param bool $addReturnUrl
-     * @return string
      * @throws RouteNotFoundException
      */
     public static function createEditUri(string $tableName, int $identifier, bool $addReturnUrl = true): string
@@ -29,13 +25,13 @@ class BackendUtility
         if ($addReturnUrl) {
             $uriParameters['returnUrl'] = self::getReturnUrl();
         }
+
         return self::getRoute('record_edit', $uriParameters);
     }
 
     /**
      * Get return URL from current request
      *
-     * @return string
      * @throws RouteNotFoundException
      */
     protected static function getReturnUrl(): string
@@ -44,9 +40,6 @@ class BackendUtility
     }
 
     /**
-     * @param string $route
-     * @param array $parameters
-     * @return string
      * @throws RouteNotFoundException
      */
     public static function getRoute(string $route, array $parameters = []): string
@@ -57,14 +50,12 @@ class BackendUtility
 
     /**
      * Get module name or route as fallback
-     *
-     * @return string
      */
     protected static function getModuleName(): string
     {
         $moduleName = 'record_edit';
-        if (GeneralUtility::_GET('route') !== null) {
-            $routePath = (string)GeneralUtility::_GET('route');
+        if (($GLOBALS['TYPO3_REQUEST']->getQueryParams()['route'] ?? null) !== null) {
+            $routePath = (string)($GLOBALS['TYPO3_REQUEST']->getQueryParams()['route'] ?? null);
             $router = GeneralUtility::makeInstance(Router::class);
             try {
                 $route = $router->match($routePath);
@@ -73,20 +64,19 @@ class BackendUtility
                 unset($exception);
             }
         }
+
         return $moduleName;
     }
 
     /**
      * Get all GET/POST params without module name and token
-     *
-     * @param array $getParameters
-     * @return array
      */
     public static function getCurrentParameters(array $getParameters = []): array
     {
-        if (empty($getParameters)) {
-            $getParameters = GeneralUtility::_GET();
+        if ($getParameters === []) {
+            $getParameters = $GLOBALS['TYPO3_REQUEST']->getQueryParams();
         }
+
         $parameters = [];
         $ignoreKeys = [
             'M',
@@ -98,8 +88,10 @@ class BackendUtility
             if (in_array($key, $ignoreKeys)) {
                 continue;
             }
+
             $parameters[$key] = $value;
         }
+
         return $parameters;
     }
 }

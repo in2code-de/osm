@@ -10,7 +10,7 @@ class EditLinkViewHelper extends AbstractViewHelper
 {
     protected $escapeOutput = false;
 
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('identifier', 'int', 'Identifier', true);
@@ -23,7 +23,6 @@ class EditLinkViewHelper extends AbstractViewHelper
         $string .= BackendUtility::createEditUri($this->arguments['table'], (int)$this->arguments['identifier']);
         $string .= '" class="in2template_editlink">';
         $string .= $this->renderChildren();
-        $string .= '</a>';
-        return $string;
+        return $string . '</a>';
     }
 }

@@ -9,7 +9,7 @@ class Information extends AbstractFormElement
 {
     protected string $label = 'LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.information';
 
-    public function render()
+    public function render(): array
     {
         $result = $this->initializeResultArray();
         if ($this->isNew()) {
@@ -18,6 +18,7 @@ class Information extends AbstractFormElement
             $content .= '</div>';
             $result['html'] = $content;
         }
+
         return $result;
     }
 

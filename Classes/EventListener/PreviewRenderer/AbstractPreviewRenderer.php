@@ -18,18 +18,18 @@ abstract class AbstractPreviewRenderer
 
     /**
      * Overwrite tt_content.list_type in subclasses
-     *
-     * @var string
      */
     protected string $listType = '';
 
     protected string $cType = 'list';
+
     protected string $table = 'tt_content';
+
     protected string $templatePath = 'EXT:osm/Resources/Private/Templates/PreviewRenderer/';
 
     public function __construct()
     {
-        if (empty($this->cType)) {
+        if ($this->cType === '' || $this->cType === '0') {
             throw new ConfigurationMissingException('Property cType must not be empty', 1597220468);
         }
     }
@@ -46,6 +46,7 @@ abstract class AbstractPreviewRenderer
     {
         $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
         $standaloneView->setTemplatePathAndFilename($this->getTemplateFile());
+
         $flexForm = $this->getFlexForm();
         $standaloneView->assignMultiple($this->getAssignmentsForTemplate() + [
             'data' => $this->data,
@@ -60,8 +61,6 @@ abstract class AbstractPreviewRenderer
 
     /**
      * Can be extended from children classes
-     *
-     * @return array
      */
     protected function getAssignmentsForTemplate(): array
     {
@@ -89,6 +88,7 @@ abstract class AbstractPreviewRenderer
                 1597220851
             );
         }
+
         return true;
     }
 
