@@ -1,8 +1,8 @@
 name: osm
 type: typo3
-docroot: ./.build/public
+docroot: ./.build/public/
 php_version: "8.2"
-webserver_type: nginx-fpm
+webserver_type: apache-fpm
 xdebug_enabled: false
 additional_hostnames: []
 additional_fqdns: []
