@@ -5,19 +5,15 @@
     <sheets>
         <main>
             <ROOT>
-                <TCEforms>
-                    <sheetTitle>Map</sheetTitle>
-                </TCEforms>
+                <sheetTitle>Map</sheetTitle>
                 <type>array</type>
                 <el>
                     <information>
-                        <TCEforms>
-                            <exclude>1</exclude>
-                            <config>
-                                <type>user</type>
-                                <renderType>osm_pi1_information</renderType>
-                            </config>
-                        </TCEforms>
+                        <exclude>1</exclude>
+                        <config>
+                            <type>user</type>
+                            <renderType>osm_pi1_information</renderType>
+                        </config>
                     </information>
                     <settings.addresses type="array">
                         <displayCond>USER:In2code\Osm\Tca\IsContentStoredDisplayCondition->match</displayCond>
@@ -27,96 +23,98 @@
                         <el>
                             <config>
                                 <type>array</type>
-                                <title>LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.addresses</title>
+                                <title>LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.addresses
+                                </title>
                                 <el>
                                     <address>
-                                        <TCEforms>
-                                            <exclude>1</exclude>
-                                            <label>LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.address</label>
-                                            <config>
-                                                <type>input</type>
-                                                <placeholder>Geschwister-Scholl-Platz, 72074 Tübingen, Deutschland</placeholder>
-                                                <eval>trim</eval>
-                                            </config>
-                                        </TCEforms>
+                                        <exclude>1</exclude>
+                                        <label>
+                                            LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.address
+                                        </label>
+                                        <config>
+                                            <type>input</type>
+                                            <placeholder>Geschwister-Scholl-Platz, 72074 Tübingen, Deutschland
+                                            </placeholder>
+                                            <eval>trim</eval>
+                                        </config>
                                     </address>
                                     <latitude>
-                                        <TCEforms>
-                                            <exclude>1</exclude>
-                                            <label>LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.latitude</label>
-                                            <config>
-                                                <type>input</type>
-                                                <placeholder>48.52441205</placeholder>
-                                                <eval>trim</eval>
-                                            </config>
-                                        </TCEforms>
+                                        <exclude>1</exclude>
+                                        <label>
+                                            LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.latitude
+                                        </label>
+                                        <config>
+                                            <type>input</type>
+                                            <placeholder>48.52441205</placeholder>
+                                            <eval>trim</eval>
+                                        </config>
                                     </latitude>
                                     <longitude>
-                                        <TCEforms>
-                                            <exclude>1</exclude>
-                                            <label>LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.longitude</label>
-                                            <config>
-                                                <type>input</type>
-                                                <placeholder>9.05972173</placeholder>
-                                                <eval>trim</eval>
-                                            </config>
-                                        </TCEforms>
+                                        <exclude>1</exclude>
+                                        <label>
+                                            LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.longitude
+                                        </label>
+                                        <config>
+                                            <type>input</type>
+                                            <placeholder>9.05972173</placeholder>
+                                            <eval>trim</eval>
+                                        </config>
                                     </longitude>
                                     <marker>
-                                        <TCEforms>
-                                            <exclude>1</exclude>
-                                            <label>LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.marker</label>
-                                            <config>
-                                                <type>check</type>
-                                                <default>0</default>
-                                            </config>
-                                        </TCEforms>
+                                        <exclude>1</exclude>
+                                        <label>
+                                            LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.marker
+                                        </label>
+                                        <config>
+                                            <type>check</type>
+                                            <default>0</default>
+                                        </config>
                                     </marker>
                                     <markertitle>
-                                        <TCEforms>
-                                            <exclude>1</exclude>
-                                            <label>LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.markertitle</label>
-                                            <config>
-                                                <type>input</type>
-                                                <placeholder>Universität Tübingen</placeholder>
-                                                <eval>trim</eval>
-                                            </config>
-                                        </TCEforms>
+                                        <exclude>1</exclude>
+                                        <label>
+                                            LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.markertitle
+                                        </label>
+                                        <config>
+                                            <type>input</type>
+                                            <placeholder>Universität Tübingen</placeholder>
+                                            <eval>trim</eval>
+                                        </config>
                                     </markertitle>
                                     <markerdescription>
-                                        <TCEforms>
-                                            <exclude>1</exclude>
-                                            <label>LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.markerdescription</label>
-                                            <config>
-                                                <type>text</type>
-                                                <placeholder>1477 gegründete Bildungseinrichtung mit 7 Fakultäten, ca. 28.500 Studenten und 17 Krankenhäusern</placeholder>
-                                                <eval>trim</eval>
-                                            </config>
-                                        </TCEforms>
+                                        <exclude>1</exclude>
+                                        <label>
+                                            LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.markerdescription
+                                        </label>
+                                        <config>
+                                            <type>text</type>
+                                            <placeholder>1477 gegründete Bildungseinrichtung mit 7 Fakultäten, ca.
+                                                28.500 Studenten und 17 Krankenhäusern
+                                            </placeholder>
+                                            <eval>trim</eval>
+                                        </config>
                                     </markerdescription>
                                 </el>
                             </config>
                         </el>
                     </settings.addresses>
                     <settings.zoom>
-                        <TCEforms>
-                            <exclude>1</exclude>
-                            <label>LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.zoom</label>
-                            <config>
-                                <type>input</type>
-                                <size>10</size>
-                                <eval>trim,int</eval>
-                                <range>
-                                    <lower>0</lower>
-                                    <upper>18</upper>
-                                </range>
-                                <default>14</default>
-                                <slider>
-                                    <step>1</step>
-                                    <width>350</width>
-                                </slider>
-                            </config>
-                        </TCEforms>
+                        <exclude>1</exclude>
+                        <label>LLL:EXT:osm/Resources/Private/Language/locallang_db.xlf:pi1.settings.zoom</label>
+                        <config>
+                            <type>input</type>
+                            <size>10</size>
+                            <eval>trim,int</eval>
+                            <range>
+                                <lower>0</lower>
+                                <upper>18</upper>
+                            </range>
+                            <default>14</default>
+                            <slider>
+                                <step>1</step>
+                                <width>350</width>
+                            </slider>
+                        </config>
                     </settings.zoom>
                 </el>
             </ROOT>
