@@ -7,9 +7,9 @@
 echo "Symlink configuration"
 cp .build/vendor/typo3/cms-install/Resources/Private/FolderStructureTemplateFiles/root-htaccess .build/public/.htaccess
 mkdir -p config/sites/main
-ln -snf ../../../../.project/TYPO3/config.yaml config/sites/main/config.yaml
+ln -snf ../../../.project/TYPO3/config.yaml config/sites/main/config.yaml
 mkdir -p config/system
-ln -snf ../../../.project/TYPO3/settings.php config/system/settings.php
+ln -snf ../../.project/TYPO3/settings.php config/system/settings.php
 
 echo "Importing database"
 ddev import-db --file=.project/data/db.sql.gz
