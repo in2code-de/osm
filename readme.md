@@ -11,9 +11,6 @@ filled).
 No jQuery, just vanilla JS. Modern asset collector used for includes of JS or CSS. PSR-14 eventdispatcher can be used
 to manipulate markers and labels.
 
-> :warning: **TYPO3 13 compatibility**\
-> See [EAP page (DE)](https://www.in2code.de/agentur/typo3-extensions/early-access-programm/) or [EAP page (EN)](https://www.in2code.de/en/agency/typo3-extensions/early-access-program/) for more information how to get access to a TYPO3 12 version
-
 ## Plugin 1
 
 ![screenshot_pi1_frontend.png](Documentation/Images/screenshot_pi1_frontend.png "Map in frontend")
@@ -146,7 +143,7 @@ class OsmManipulator
 }
 ```
 
-## Development
+## Contribution with ddev
 
 This repository provides a [DDEV]()-backed development environment. If DDEV is installed, simply run the following
 commands to quickly set up a local environment with example usages:
@@ -154,10 +151,35 @@ commands to quickly set up a local environment with example usages:
 * `ddev start`
 * `ddev initialize`
 
+### Requirements
+
+1. Install ddev, see: https://ddev.readthedocs.io/en/stable/#installation
+2. Install git-lfs, see: https://git-lfs.github.com/
+
+### Installation
+
+1. Clone this repository
+2. Run `ddev start`
+3. Run `ddev initialize` to setup configurations and test database
+
+### Branchinfo
+
+* Main Branch - Next Major Version
+* typo3-v13: Version V13 for TYPO3 13
+* typo3-v12: Version V4 for TYPO3 12
+
+## Early Access Programm for TYPO3 14 support
+
+:information_source: **TYPO3 14 compatibility**
+> See [EAP page (DE)](https://www.in2code.de/agentur/typo3-extensions/early-access-programm/) or
+> [EAP page (EN)](https://www.in2code.de/en/agency/typo3-extensions/early-access-program/) for more information how
+> to get access to a TYPO3 14 version
+
 ## Changelog
 
 | Version     | Date       | State   | Description                                                                                         |
 |-------------|------------|---------|-----------------------------------------------------------------------------------------------------|
+| 13.0.0      | 2025-08-08 | Task    | Support TYPO3 13                                                                                    |
 | 4.0.3       | 2024-08-23 | Bugfix  | Fix possible missing array key exception in Pi1                                                     |
 | 4.0.2       | 2024-04-12 | Bugfix  | Fix problem with tt_address TCA if there is no tt_address installed                                 |
 | 4.0.1       | 2024-02-05 | Bugfix  | Small bugfix for TYPO3 TER upload                                                                   |
