@@ -1,0 +1,46 @@
+.osm-map {
+    height: 400px;
+}
+
+.olPopupCloseBox {
+    right: 10px !important;
+    width: 21px !important;
+    height: 21px !important;
+    border: 1px solid rgba(50, 65, 75, 0.8);
+    line-height: normal;
+}
+
+.olPopupCloseBox::after {
+    content: "x";
+    color: rgba(50, 65, 75, 0.8);
+    position: relative;
+    right: -5px;
+    top: -3px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+}
+
+.olFramedCloudPopupContent {
+    font-family: Arial, sans-serif;
+}
+
+.markerContent {
+    padding: 10px 20px 10px 10px;
+    line-height: 1.2rem;
+    max-width: 300px;
+    font-size: 0.9em;
+}
+
+.markerContent h5 {
+    font-size: 1em;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+#pop_GroupDiv > div:not(:last-of-type) {
+    background-color: #fff;
+}
+
+#pop_GroupDiv div:not(:last-of-type) img {
+    display: none;
+}

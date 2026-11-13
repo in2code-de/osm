@@ -1,0 +1,4 @@
+plugin.tx_osm {
+  # cat=osm; type=boolean; label= Enable alternative frontend templates with an updated OpenLayers library
+  enableOpenLayers10 = 0
+}

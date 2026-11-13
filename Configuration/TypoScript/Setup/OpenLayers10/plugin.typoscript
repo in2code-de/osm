@@ -1,0 +1,7 @@
+plugin.tx_osm {
+  view {
+    layoutRootPaths {
+      0 = EXT:osm/Resources/Private/OpenLayers10/Layouts/
+    }
+  }
+}
