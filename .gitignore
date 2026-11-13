@@ -15,6 +15,7 @@ npm-debug.log
 dynamicReturnTypeMeta.json
 Resources/Private/Build/node_modules/
 node_modules/
+.build/
 .Build/
 composer.lock
 package-lock.json
