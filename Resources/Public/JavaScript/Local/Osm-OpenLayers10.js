@@ -100,41 +100,41 @@ function Osm() {
    * @param container
    */
   var createMap = function(container) {
-    var fromProjection = new OpenLayers.Projection('EPSG:4326');
-    var toProjection = new OpenLayers.Projection('EPSG:900913');
-    var position = new OpenLayers.LonLat(longitude, latitude).transform(fromProjection, toProjection);
-
-    map = new OpenLayers.Map(container, {
-      controls: [],
-      numZoomLevels: 18,
-      maxResolution: 156543,
-      units: 'meters',
-      theme: null
-    });
-    map.addControl(new OpenLayers.Control.PanZoomBar());
-    map.addControl(new OpenLayers.Control.Navigation());
-    var mapnik = new OpenLayers.Layer.OSM(
-      'OpenStreetMap',
-      [
-        '//a.tile.openstreetmap.org/${z}/${x}/${y}.png',
-        '//b.tile.openstreetmap.org/${z}/${x}/${y}.png',
-        '//c.tile.openstreetmap.org/${z}/${x}/${y}.png'
-      ],
-      null
+    var fromProjection = ol.proj.get('EPSG:4326');
+    var toProjection = ol.proj.get('EPSG:3857'); // now official code for previously 'EPSG:900913'
+    var position = ol.proj.transform(
+      [longitude, latitude],
+      fromProjection,
+      toProjection
     );
-    map.addLayer(mapnik);
+
+    map = new ol.Map({
+      target: container,
+      controls: ol.control.defaults.defaults({rotate: false}).extend([new ol.control.ZoomSlider()]),
+      layers: [
+        new ol.layer.Tile({
+          source: new ol.source.OSM({
+            url: 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+          })
+        })
+      ],
+      view: new ol.View({
+        center: position,
+        zoom: zoom,
+        maxZoom: 18,
+        constrainResolution: true
+      })
+    });
 
     addMarkers();
-
-    map.setCenter(position, zoom);
   };
 
   /**
    * Add all markers to map
    */
   var addMarkers = function() {
-    var vectorLayer = new OpenLayers.Layer.Vector('Overlay');
-
+    var vectorSource = new ol.source.Vector();
+    var vectorLayer = new ol.layer.Vector({source: vectorSource});
 
     for (var i = 0; i < markers.length; i++) {
       var marker = markers[i];
@@ -147,8 +147,8 @@ function Osm() {
       }
       var iconWidth = 23;
       var iconHeight = 38;
-      var iconOffsetX = -15;
-      var iconOffsetY = -36;
+      var iconOffsetX = 0.5;
+      var iconOffsetY = 1.0;
       if (marker.icon) {
         markerGraphics = marker.icon;
       }
@@ -165,59 +165,79 @@ function Osm() {
         iconOffsetY = marker.iconOffsetY;
       }
 
-      var feature = new OpenLayers.Feature.Vector(
-        new OpenLayers.Geometry.Point(marker.longitude, marker.latitude).transform(
-          new OpenLayers.Projection('EPSG:4326'),
-          new OpenLayers.Projection('EPSG:900913')
+      var feature = new ol.Feature({
+        geometry: new ol.geom.Point(
+          ol.proj.transform(
+            [marker.longitude, marker.latitude],
+            ol.proj.get('EPSG:4326'),
+            ol.proj.get('EPSG:3857')
+          )
         ),
-        {
-          description: label
-        },
-        {
-          externalGraphic: markerGraphics,
-          graphicWidth: iconWidth,
-          graphicHeight: iconHeight,
-          graphicXOffset: iconOffsetX,
-          graphicYOffset: iconOffsetY
-        }
-      );
-      vectorLayer.addFeatures(feature);
-
-      if (label !== null) {
-        var controls = {
-          selector: new OpenLayers.Control.SelectFeature(vectorLayer, {onSelect: createPopup, onUnselect: destroyPopup})
-        };
-
-        function createPopup(feature) {
-          if (feature.attributes.description !== null) {
-            feature.popup = new OpenLayers.Popup.FramedCloud(
-              'pop',
-              feature.geometry.getBounds().getCenterLonLat(),
-              null,
-              '<div class="markerContent">' + nl2br(feature.attributes.description, true, false) + '</div>',
-              null,
-              true,
-              function() {
-                controls['selector'].unselectAll();
-              }
-            );
-            map.addPopup(feature.popup);
-          }
-        }
-        function destroyPopup(feature) {
-          if (feature.attributes.description !== null) {
-            feature.popup.destroy();
-            feature.popup = null;
-          }
-        }
-
-        map.addControl(controls['selector']);
-        controls['selector'].activate();
-      }
-
+        description: label
+      });
+      feature.setStyle(new ol.style.Style({
+        image: new ol.style.Icon({
+          src: markerGraphics,
+          width: iconWidth,
+          height: iconHeight,
+          anchor: [iconOffsetX, iconOffsetY]
+        })
+      }));
+      vectorSource.addFeature(feature);
     }
 
     map.addLayer(vectorLayer);
+
+    var popupElement = document.createElement('div');
+    popupElement.className = 'osm-popup';
+    popupElement.innerHTML = '<button type="button" class="osm-popup__close">×</button>' +
+      '<div class="osm-popup__marker-content"></div>';
+    var popupContent = popupElement.querySelector('.osm-popup__marker-content');
+    var overlay = new ol.Overlay({
+      element: popupElement,
+      positioning: 'bottom-center',
+      offset: [0, (iconHeight * -1)],
+      autoPan: {
+        animation: {duration: 500}
+      }
+    });
+    map.addOverlay(overlay);
+
+    popupElement.querySelector('.osm-popup__close').addEventListener('click', function() {
+      overlay.setPosition(undefined);
+    });
+
+    map.on('click', function(event) {
+      overlay.setPosition(undefined);
+
+      var feature = map.forEachFeatureAtPixel(
+        event.pixel,
+        function(feature) {
+          if (feature && feature.get('description')) {
+            return feature;
+          }
+        },
+        {
+          layerFilter: function(layerCandidate) {
+            return layerCandidate === vectorLayer;
+          }
+        }
+      );
+
+      if (feature) {
+        popupContent.innerHTML = nl2br(feature.get('description'), true, false);
+        overlay.setPosition(feature.getGeometry().getCoordinates());
+      }
+    });
+
+    map.on('pointermove', function(event) {
+      var hit = map.hasFeatureAtPixel(event.pixel, {
+        layerFilter: function(layer) {
+          return layer === vectorLayer;
+        }
+      });
+      map.getTargetElement().style.cursor = hit ? 'pointer' : '';
+    });
   };
 
   /**
