@@ -10,4 +10,8 @@ plugin.tx_osm {
       0 = EXT:osm/Resources/Private/OpenLayers10/Templates/
     }
   }
+
+  settings {
+    tileServerUriTemplate = {$plugin.tx_osm.settings.tileServerUriTemplate}
+  }
 }

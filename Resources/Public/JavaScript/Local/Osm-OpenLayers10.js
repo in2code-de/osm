@@ -59,12 +59,20 @@ function Osm() {
   var localizationLabels = {};
 
   /**
+   * URI template for the tile server
+   *
+   * @type {string}
+   */
+  var tileServerUriTemplate = '';
+
+  /**
    * @param container
    */
   this.initializeMap = function(container) {
     zoom = parseInt(container.getAttribute('data-osm-zoom'));
     markerurl = container.getAttribute('data-osm-markerurl');
     markerGraphics = container.getAttribute('data-osm-markergraphics');
+    tileServerUriTemplate = container.getAttribute('data-osm-tile-server-uri-template');
     getLocalizationLabels(container);
     getMarkersFromAjaxAndCreateMap(container);
   };
@@ -150,7 +158,7 @@ function Osm() {
       layers: [
         new ol.layer.Tile({
           source: new ol.source.OSM({
-            url: 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            url: tileServerUriTemplate,
             attributions: localizationLabels.attributions ?? null
           })
         })
