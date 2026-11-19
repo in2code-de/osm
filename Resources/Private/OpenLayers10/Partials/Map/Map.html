@@ -1,0 +1,23 @@
+<div
+    class="osm-map"
+    data-osm="map"
+    data-osm-markerurl="{f:uri.page(additionalParams: '{type:1597149189,tx_osm_markers:\'{contentIdentifier:data.uid}\'}')}"
+    data-osm-markergraphics="{f:uri.resource(path: 'Icons/Marker.png')}"
+    data-osm-zoom="{settings.zoom}">
+    <div class="osm-localization" hidden="hidden">
+        <dl>
+            <div class="osm-localization__item">
+                <dt>zoomInTipLabel</dt>
+                <dd>{f:translate(key: 'zoomIn', extensionName: 'osm')}</dd>
+            </div>
+            <div class="osm-localization__item">
+                <dt>zoomOutTipLabel</dt>
+                <dd>{f:translate(key: 'zoomOut', extensionName: 'osm')}</dd>
+            </div>
+            <div class="osm-localization__item">
+                <dt>attributions</dt>
+                <dd>© {f:translate(key: 'mapDataFrom', extensionName: 'osm')}: <f:link.external uri="https://www.openstreetmap.org/copyright">OpenStreetMap</f:link.external></dd>
+            </div>
+        </dl>
+    </div>
+</div>

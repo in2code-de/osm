@@ -2,6 +2,10 @@
     height: 400px;
 }
 
+.osm-localization {
+    display: none;
+}
+
 .osm-popup {
     font-family: Arial, sans-serif;
     position: relative;

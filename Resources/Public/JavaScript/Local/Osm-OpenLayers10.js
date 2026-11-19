@@ -52,13 +52,42 @@ function Osm() {
   var markerGraphics = '';
 
   /**
+   * Key-value map of localization strings
+   *
+   * @type {Object<string, string>}
+   */
+  var localizationLabels = {};
+
+  /**
    * @param container
    */
   this.initializeMap = function(container) {
     zoom = parseInt(container.getAttribute('data-osm-zoom'));
     markerurl = container.getAttribute('data-osm-markerurl');
     markerGraphics = container.getAttribute('data-osm-markergraphics');
+    getLocalizationLabels(container);
     getMarkersFromAjaxAndCreateMap(container);
+  };
+
+  /**
+   * @param container
+   * @returns {void}
+   */
+  var getLocalizationLabels = function(container) {
+    var localizationContainer = container.querySelector('.osm-localization')
+    if (!localizationContainer) {
+      return;
+    }
+
+    localizationContainer.querySelectorAll('.osm-localization__item').forEach((item) => {
+      var key = item.querySelector('dt')?.innerHTML;
+      var value = item.querySelector('dd')?.innerHTML;
+      if (!key || !value) {
+        return;
+      }
+
+      localizationLabels[key] = value;
+    });
   };
 
   /**
@@ -110,11 +139,19 @@ function Osm() {
 
     map = new ol.Map({
       target: container,
-      controls: ol.control.defaults.defaults({rotate: false}).extend([new ol.control.ZoomSlider()]),
+      controls: new ol.Collection([
+        new ol.control.Zoom({
+          zoomInTipLabel: localizationLabels.zoomInTipLabel ?? null,
+          zoomOutTipLabel: localizationLabels.zoomOutTipLabel ?? null
+        }),
+        new ol.control.ZoomSlider(),
+        new ol.control.Attribution()
+      ]),
       layers: [
         new ol.layer.Tile({
           source: new ol.source.OSM({
-            url: 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+            url: 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            attributions: localizationLabels.attributions ?? null
           })
         })
       ],
