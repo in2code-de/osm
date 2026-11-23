@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:osm/Resources/Private/Language/locallang.xlf" date="2026-11-19T15:00:00Z" product-name="osm">
+		<header/>
+		<body>
+			<trans-unit id="mapDataFrom" resname="mapDataFrom">
+				<source>Map data from</source>
+				<target>Kartendaten bereitgestellt von</target>
+			</trans-unit>
+			<trans-unit id="zoomIn" resname="zoomIn">
+				<source>Zoom in</source>
+				<target>Hineinzoomen</target>
+			</trans-unit>
+			<trans-unit id="zoomOut" resname="zoomOut">
+				<source>Zoom out</source>
+				<target>Herauszoomen</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

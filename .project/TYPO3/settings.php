@@ -12,7 +12,12 @@ return [
         'Connections' => [
             'Default' => [
                 'charset' => 'utf8',
+                'dbname' => 'db',
                 'driver' => 'mysqli',
+                'host' => 'db',
+                'password' => 'db',
+                'port' => '3306',
+                'user' => 'db',
             ],
         ],
     ],
@@ -105,5 +110,6 @@ return [
             3,
             1,
         ],
+        'trustedHostsPattern' => '.*',
     ],
 ];

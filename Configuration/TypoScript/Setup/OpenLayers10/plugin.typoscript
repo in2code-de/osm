@@ -1,0 +1,17 @@
+plugin.tx_osm {
+  view {
+    layoutRootPaths {
+      0 = EXT:osm/Resources/Private/OpenLayers10/Layouts/
+    }
+    partialRootPaths {
+      0 = EXT:osm/Resources/Private/OpenLayers10/Partials/
+    }
+    templateRootPaths {
+      0 = EXT:osm/Resources/Private/OpenLayers10/Templates/
+    }
+  }
+
+  settings {
+    tileServerUriTemplate = {$plugin.tx_osm.settings.tileServerUriTemplate}
+  }
+}

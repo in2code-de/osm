@@ -1,0 +1,7 @@
+plugin {
+  tx_osm {
+    settings {
+      configurationExists = 1
+    }
+  }
+}
